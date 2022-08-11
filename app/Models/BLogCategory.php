@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Kyslik\ColumnSortable\Sortable;
 
-class BLogCategory extends Model
+class BlogCategory extends Model
 {
     use HasFactory, Sortable;
     protected $table = 'blog-categories';
