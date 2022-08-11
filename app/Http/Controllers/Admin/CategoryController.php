@@ -53,4 +53,38 @@ class CategoryController extends Controller
         Alert::success('Success', 'Data Created Successfully');
         return redirect()->route('admin.category.index');
     }
+    public function edit(Category $category)
+    {
+        return view('admin.category.edit', [
+            'category' => $category
+        ]);
+    }
+    public function update(Request $request, Category $category)
+    {
+        $request->validate([
+            'category' => 'required',
+            'slug'     => 'required',
+            'image'    => 'image|mimes:jpeg,png,jpg,svg|max:8192'
+        ]);
+
+        if ($request->file('image')) {
+            $image = $this->UpdateImageCloudinary([
+                'image'      => $request->file('image'),
+                'folder'     => 'tjsl-core/categories',
+                'collection' => $category
+            ]);
+            $image_url = $image['url'];
+            $additional_image = $image['additional_image'];
+        }
+
+        $category->update([
+            'name'        => $request->category,
+            'slug'        => $request->slug,
+            'description' => $request->description ?? $category->description,
+            'image'       => $image_url ?? $category->image,
+            'additional_image' => $additional_image ?? $category->additional_image
+        ]);
+        Alert::success('Success', 'Updated Successfully');
+        return redirect()->route('admin.category.index');
+    }
 }
