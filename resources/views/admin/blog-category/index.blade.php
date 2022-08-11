@@ -6,7 +6,7 @@
       <div class="page-title-wrapper">
          <div class="page-title-heading">
             <div class="page-title-icon">
-               <i class="pe-7s-server icon-gradient bg-tempting-azure"></i>
+               <i class="pe-7s-note icon-gradient bg-tempting-azure"></i>
             </div>
             <div>Master Blog Category <span class="badge badge-pill badge-primary">{{ number_format($categories->total(), 0, "", ".") }}</span><div class="page-title-subheading">List Master Blog Category</div></div>
          </div>
@@ -59,7 +59,7 @@
                         <td>{{ $category->slug ?? '-' }}</td>
                         <td title="{{ $category->description }}">{{ $category->description ? \Str::limit($category->description, 60, ' .') : '-' }}</td>
                         <td>
-                           <a href="#" class="btn btn-warning btn-sm" title="Edit ?"><i style="font-size: 14px" class="text-white pe-7s-note"></i></a>
+                           <a href="{{ route('admin.blog-category.edit',$category) }}" class="btn btn-warning btn-sm" title="Edit ?"><i style="font-size: 14px" class="text-white pe-7s-note"></i></a>
                            <button type="button" class="btn btn-danger btn-sm" title="Delete ?"><i style="font-size: 14px" class="pe-7s-trash"></i></button>
                         </td>
                     </tr>

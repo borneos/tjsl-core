@@ -24,6 +24,8 @@ Route::namespace('Admin')->middleware('auth')->group(function () {
         Route::get('/', 'BlogCategoryController@index')->name('admin.blog-category.index');
         Route::get('/add', 'BlogCategoryController@add')->name('admin.blog-category.add');
         Route::post('/add', 'BlogCategoryController@store')->name('admin.blog-category.store');
+        Route::get('/edit/{category:slug}', 'BlogCategoryController@edit')->name('admin.blog-category.edit');
+        Route::put('/edit/{category:slug}', 'BlogCategoryController@update')->name('admin.blog-category.update');
     });
 });
 
