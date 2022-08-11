@@ -20,6 +20,9 @@ Route::namespace('Admin')->middleware('auth')->group(function () {
         Route::put('/edit/{category:slug}', 'CategoryController@update')->name('admin.category.update');
         Route::delete('/{category:id}', 'CategoryController@delete')->name('admin.category.delete');
     });
+    Route::prefix('blog-category')->group(function () {
+        Route::get('/', 'BlogCategoryController@index')->name('admin.blog-category.index');
+    });
 });
 
 Route::get('/', 'LandingController@index')->name('index');
