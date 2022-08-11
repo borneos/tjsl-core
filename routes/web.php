@@ -1,6 +1,8 @@
 <?php
 
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Landing;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,10 +15,18 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+// Route::get('/', function () {
+//     return view('welcome');
+// });
+
+Route::get('/logout', function () {
+    auth()->logout();
+    return redirect()->route('login');
 });
+
+
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/', 'LandingController@index')->name('index');
+// Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
