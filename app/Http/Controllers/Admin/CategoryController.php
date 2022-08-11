@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Traits\CloudinaryImage;
 use App\Models\Category;
+use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
 use Illuminate\Http\Request;
 use RealRashid\SweetAlert\Facades\Alert;
 
@@ -86,5 +87,14 @@ class CategoryController extends Controller
         ]);
         Alert::success('Success', 'Updated Successfully');
         return redirect()->route('admin.category.index');
+    }
+    public function delete(Category $category)
+    {
+        if ($category->image && $category->additional_image) {
+            $key = json_decode($category->additional_image);
+            Cloudinary::destroy($key->public_id);
+        }
+        $category->delete();
+        return response()->json(['status' => 200]);
     }
 }

@@ -18,6 +18,7 @@ Route::namespace('Admin')->middleware('auth')->group(function () {
         Route::post('/add', 'CategoryController@store')->name('admin.category.store');
         Route::get('/edit/{category:slug}', 'CategoryController@edit')->name('admin.category.edit');
         Route::put('/edit/{category:slug}', 'CategoryController@update')->name('admin.category.update');
+        Route::delete('/{category:id}', 'CategoryController@delete')->name('admin.category.delete');
     });
 });
 
