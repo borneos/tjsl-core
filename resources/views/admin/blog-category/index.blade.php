@@ -11,7 +11,7 @@
             <div>Master Blog Category <span class="badge badge-pill badge-primary">{{ number_format($categories->total(), 0, "", ".") }}</span><div class="page-title-subheading">List Master Blog Category</div></div>
          </div>
          <div class="page-title-actions">
-             <a href="#" class="btn-shadow btn btn-info btn-lg">Add Blog Category</a>
+             <a href="{{ route('admin.blog-category.add') }}" class="btn-shadow btn btn-info btn-lg">Add Blog Category</a>
          </div>
       </div>
    </div>
