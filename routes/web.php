@@ -22,6 +22,8 @@ Route::namespace('Admin')->middleware('auth')->group(function () {
     });
     Route::prefix('blog-category')->group(function () {
         Route::get('/', 'BlogCategoryController@index')->name('admin.blog-category.index');
+        Route::get('/add', 'BlogCategoryController@add')->name('admin.blog-category.add');
+        Route::post('/add', 'BlogCategoryController@store')->name('admin.blog-category.store');
     });
 });
 
