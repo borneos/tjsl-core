@@ -14,6 +14,8 @@ Auth::routes();
 Route::namespace('Admin')->middleware('auth')->group(function () {
     Route::prefix('category')->group(function () {
         Route::get('/', 'CategoryController@index')->name('admin.category.index');
+        Route::get('/add', 'CategoryController@add')->name('admin.category.add');
+        Route::post('/add', 'CategoryController@store')->name('admin.category.store');
     });
 });
 
