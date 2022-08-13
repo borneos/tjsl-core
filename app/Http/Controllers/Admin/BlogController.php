@@ -3,24 +3,26 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Traits\TraitsBlog;
 use App\Models\Blog;
 use Illuminate\Http\Request;
 use RealRashid\SweetAlert\Facades\Alert;
 
 class BlogController extends Controller
 {
+    use TraitsBlog;
+
     public function index(Request $request)
     {
-        $filter = $request->query('filter');
-        if (!empty($filter)) {
-            $blogs = Blog::sortable()
-                ->where('blog.title', 'like', '%' . $filter . '%')
-                ->orWhere('blog.slug', 'like', '%' . $filter . '%')
-                ->paginate(10);
-        } else {
-            $blogs = Blog::sortable()->paginate(10);
-        }
-        return view('admin.blog.index', compact('blogs', 'filter'));
+        $search = $this->SearchBloglist([
+            'filter' => $request->query('filter'),
+            'status' => $request->query('status')
+        ]);
+        return view('admin.blog.index', [
+            'blogs'  => $search['blogs'],
+            'filter' => $search['filter'],
+            'status' => $search['status'] == null ? 404 : $search['status']
+        ]);
     }
     public function blog_status(Request $request)
     {
