@@ -35,6 +35,7 @@ Route::namespace('Admin')->middleware('auth')->group(function () {
         Route::post('/add', 'BlogController@store')->name('admin.blog.store');
         Route::get('/edit/{blog:slug}', 'BlogController@edit')->name('admin.blog.edit');
         Route::put('/edit/{blog:slug}', 'BlogController@update')->name('admin.blog.update');
+        Route::delete('/{blog:id}', 'BlogController@delete')->name('admin.blog.delete');
     });
 });
 
