@@ -17,34 +17,47 @@
    </div>
    <div class="main-card mb-3 card">
       <div class="card-body">
-        <div class="row mb-3">
-          <div class="col-12 col-md-5">
-            <div class="d-flex">
-              <form class="form-inline" method="GET">
-                <div class="input-group">
-                  <div class="input-group-prepend">
-                    <div class="input-group-text">
-                      <i class="fa fa-search fa-w-16"></i>
+        <form method="GET">
+          <div class="row mb-3">
+            <div class="col-12 col-md-3">
+              <div class="d-flex">
+                <div class="form-inline w-100" >
+                  <div class="input-group w-100">
+                    <div class="input-group-prepend">
+                      <div class="input-group-text">
+                        <i class="fa fa-search fa-w-16"></i>
+                      </div>
                     </div>
-                  </div>
-                  <input id="filter" name="filter" value="{{$filter}}" autocomplete="off" placeholder="Search" type="text" class="form-control" style="color: gray;">
-                  <div class="input-group-prepend">
-                    <button type="submit" class="btn btn-primary btn-md">Search</button>
+                    <input id="filter" name="filter" value="{{$filter}}" placeholder="Search" type="text" class="form-control" style="color: gray;" autocomplete="off">
                   </div>
                 </div>
-              </form>
-              <form class="form-inline" method="GET">
-                <button class="btn btn-light btn-lg ml-2">Clear</button>
-              </form>
+              </div>
+            </div>   
+            <div class="col-12 col-md-2">
+              <div class="d-flex">
+                  <div class="input-group w-100">
+                    <select name="status" id="status" class="form-control">
+                      <option {{ $status == 404 ? 'selected':'' }} disabled selected>Select Status</option>
+                      <option {{ $status == 1 ? 'selected':'' }} value="1">Status Active</option>
+                      <option {{ $status == 0 ? 'selected':'' }} value="0">Status Not Active</option>
+                    </select>
+                  </div>
+              </div>
+            </div>
+            <div class="col-12 col-md-2">
+              <div class="d-flex">
+                <a href="{{ route('admin.blog.index') }}" class="btn btn-light btn-lg mr-2">Clear</a>
+                <button type="submit" class="btn btn-primary btn-md">Search</button>
+              </div>
             </div>
           </div>
-        </div>
+        </form>
          <table style="width: 100%;" class="table table-hover table-striped table-bordered">
             <thead>
                <tr>
                   <th>@sortablelink('id', 'ID')</th>
                   <th>Image</th>
-                  <th>@sortablelink('title', 'Blog Name')</th>
+                  <th>@sortablelink('title', 'Blog Title')</th>
                   <th>Blog Slug</th>
                   <th>Short Description</th>
                   <th>Description</th>
