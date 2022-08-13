@@ -31,10 +31,16 @@
         </ul>
         <ul class="vertical-nav-menu">
           <li>
-              <a class="category" href="{{ route('admin.category.index') }}"><i class="metismenu-icon pe-7s-server"></i>Category</a>
+              <a class="category {{ count(request()->segments()) == 1 && request()->segments()[0] == 'category' ? 'mm-active' : '' }}" href="{{ route('admin.category.index') }}"><i class="metismenu-icon pe-7s-server"></i>Category</a>
+          </li>
+          <li class="app-sidebar__heading">Blog</li>
+        </ul>
+         <ul class="vertical-nav-menu">
+          <li>
+              <a class="blog {{ count(request()->segments()) == 1 && request()->segments()[0] == 'blog' ? 'mm-active' : '' }}" href="{{ route('admin.blog.index') }}"><i class="metismenu-icon pe-7s-notebook"></i>Blog</a>
           </li>
           <li>
-              <a class="blog-category" href="{{ route('admin.blog-category.index') }}"><i class="metismenu-icon pe-7s-note"></i>Blog Category</a>
+              <a class="blog-category {{ count(request()->segments()) == 1 && request()->segments()[0] == 'blog-category' ? 'mm-active' : '' }}" href="{{ route('admin.blog-category.index') }}"><i class="metismenu-icon pe-7s-note"></i>Blog Category</a>
           </li>
         </ul>
     </div>
