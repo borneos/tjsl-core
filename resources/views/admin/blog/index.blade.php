@@ -88,7 +88,7 @@
                            </label>
                         </td>
                         <td>
-                           <a href="#" class="btn btn-warning btn-sm" title="Edit ?"><i style="font-size: 14px" class="text-white pe-7s-note"></i></a>
+                           <a href="{{ route('admin.blog.edit',$blog) }}" class="btn btn-warning btn-sm" title="Edit ?"><i style="font-size: 14px" class="text-white pe-7s-note"></i></a>
                            <button class="btn btn-danger btn-sm" title="Delete ?"><i style="font-size: 14px" class="pe-7s-trash"></i></button>
                         </td>
                     </tr>
