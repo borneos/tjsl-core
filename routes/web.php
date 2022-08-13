@@ -31,6 +31,8 @@ Route::namespace('Admin')->middleware('auth')->group(function () {
     Route::prefix('blog')->group(function () {
         Route::get('/', 'BlogController@index')->name('admin.blog.index');
         Route::get('/status/{id}/{status}', 'BlogController@blog_status')->name('admin.blog.status');
+        Route::get('/add', 'BlogController@add')->name('admin.blog.add');
+        Route::post('/add', 'BlogController@store')->name('admin.blog.store');
     });
 });
 
