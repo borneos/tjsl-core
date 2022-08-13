@@ -67,4 +67,42 @@ class BlogController extends Controller
         Alert::success('Success', 'Data Created Successfully');
         return redirect()->route('admin.blog.index');
     }
+    public function edit(Blog $blog)
+    {
+        return view('admin.blog.edit', [
+            'blog'       => $blog,
+            'categories' => BlogCategory::all()
+        ]);
+    }
+    public function update(Request $request, Blog $blog)
+    {
+        $request->validate([
+            'title'    => 'required',
+            'slug'     => 'required',
+            'category' => 'required',
+            'image'    => 'image|mimes:jpeg,png,jpg,svg|max:8192'
+        ]);
+        if ($request->file('image')) {
+            $image = $this->UpdateImageCloudinary([
+                'image'      => $request->file('image'),
+                'folder'     => 'tjsl-core/blogs',
+                'collection' => $blog
+            ]);
+            $image_url = $image['url'];
+            $additional_image = $image['additional_image'];
+        }
+        $blog->update([
+            'title'       => $request->title,
+            'slug'        => $request->slug,
+            'category_id' => $request->category,
+            'author'      => $request->author ?? '',
+            'tags'        => $request->tags ?? '',
+            'image'       => $image_url ?? $blog->image,
+            'additional_image'  => $additional_image ?? $blog->additional_image,
+            'short_description' => $request->short_description ?? '',
+            'description'       => $request->description ?? ''
+        ]);
+        Alert::success('Success', 'Data Updated Successfully');
+        return redirect()->route('admin.blog.index');
+    }
 }

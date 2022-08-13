@@ -33,6 +33,8 @@ Route::namespace('Admin')->middleware('auth')->group(function () {
         Route::get('/status/{id}/{status}', 'BlogController@blog_status')->name('admin.blog.status');
         Route::get('/add', 'BlogController@add')->name('admin.blog.add');
         Route::post('/add', 'BlogController@store')->name('admin.blog.store');
+        Route::get('/edit/{blog:slug}', 'BlogController@edit')->name('admin.blog.edit');
+        Route::put('/edit/{blog:slug}', 'BlogController@update')->name('admin.blog.update');
     });
 });
 
