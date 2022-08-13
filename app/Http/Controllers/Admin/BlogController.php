@@ -3,14 +3,14 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Traits\TraitsBlog;
-use App\Models\Blog;
+use App\Http\Traits\{CloudinaryImage, TraitsBlog};
+use App\Models\{Blog, BlogCategory};
 use Illuminate\Http\Request;
 use RealRashid\SweetAlert\Facades\Alert;
 
 class BlogController extends Controller
 {
-    use TraitsBlog;
+    use TraitsBlog, CloudinaryImage;
 
     public function index(Request $request)
     {
@@ -30,6 +30,41 @@ class BlogController extends Controller
         $blog->status = $request->status;
         $blog->save();
         Alert::toast('Status Updated', 'success');
+        return redirect()->route('admin.blog.index');
+    }
+    public function add()
+    {
+        return view('admin.blog.add', [
+            'categories' => BlogCategory::all()
+        ]);
+    }
+    public function store(Request $request)
+    {
+        $request->validate([
+            'title'    => 'required',
+            'slug'     => 'required',
+            'category' => 'required',
+            'image'    => 'image|mimes:jpeg,png,jpg,svg|max:8192'
+        ]);
+
+        if ($request->file('image')) {
+            $image = $this->UploadImageCloudinary(['image' => $request->file('image'), 'folder' => 'tjsl-core/blogs']);
+            $image_url = $image['url'];
+            $additional_image = $image['additional_image'];
+        }
+        Blog::create([
+            'title'       => $request->title,
+            'slug'        => $request->slug,
+            'category_id' => $request->category,
+            'author'      => $request->author ?? '',
+            'tags'        => $request->tags ?? '',
+            'status'      => 1,
+            'image'       => $image_url ?? '',
+            'additional_image'  => $additional_image ?? '',
+            'short_description' => $request->short_description ?? '',
+            'description'       => $request->description ?? ''
+        ]);
+        Alert::success('Success', 'Data Created Successfully');
         return redirect()->route('admin.blog.index');
     }
 }

@@ -11,7 +11,7 @@
             <div>Master Blog<span class="badge badge-pill badge-primary">{{ number_format($blogs->total(), 0, "", ".") }}</span><div class="page-title-subheading">List Master Blog</div></div>
          </div>
          <div class="page-title-actions">
-             <a href="#" class="btn-shadow btn btn-info btn-lg">Add Blog</a>
+             <a href="{{ route('admin.blog.add') }}" class="btn-shadow btn btn-info btn-lg">Add Blog</a>
          </div>
       </div>
    </div>
@@ -55,9 +55,9 @@
          <table style="width: 100%;" class="table table-hover table-striped table-bordered">
             <thead>
                <tr>
-                  <th>@sortablelink('id', 'ID')</th>
+                  <th style="min-width: 80px">@sortablelink('id', 'ID')</th>
                   <th>Image</th>
-                  <th>@sortablelink('title', 'Blog Title')</th>
+                  <th style="min-width: 100px">@sortablelink('title', 'Blog Title')</th>
                   <th>Blog Slug</th>
                   <th>Short Description</th>
                   <th>Description</th>
@@ -65,7 +65,7 @@
                   <th>Author</th>
                   <th>Tags</th>
                   <th>Status</th>
-                  <th>Action</th>
+                  <th style="min-width: 100px">Action</th>
                </tr>
             </thead>
             <tbody>
@@ -78,7 +78,7 @@
                         <td>{{ $blog->title ?? '-' }}</td>
                         <td>{{ $blog->slug ?? '-' }}</td>
                         <td title="{{ $blog->short_description }}">{{ $blog->short_description ? \Str::limit($blog->short_description, 60, ' .') : '-' }}</td>
-                        <td title="{{ $blog->description }}">{{ $blog->description ? \Str::limit($blog->description, 60, ' .') : '-' }}</td>
+                        <td>{!! $blog->description ? \Str::limit($blog->description, 100, ' .') : '-' !!}</td>
                         <td>{{ $blog->category_id && $blog->category->name ? $blog->category->name : '-' }}</td>
                         <td>{{ $blog->author ?? '-' }}</td>
                         <td>{{ $blog->tags ?? '-' }}</td>
