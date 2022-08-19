@@ -20,7 +20,10 @@ Route::namespace('Admin')->middleware('auth')->group(function () {
         Route::put('/edit/{category:slug}', 'CategoryController@update')->name('admin.category.update');
         Route::delete('/{category:id}', 'CategoryController@delete')->name('admin.category.delete');
     });
-    Route::prefix('blog-category')->group(function () {
+    Route::prefix('merchant')->group(function () {
+        Route::get('/', 'MerchantController@index')->name('admin.merchant.index');
+    });
+        Route::prefix('blog-category')->group(function () {
         Route::get('/', 'BlogCategoryController@index')->name('admin.blog-category.index');
         Route::get('/add', 'BlogCategoryController@add')->name('admin.blog-category.add');
         Route::post('/add', 'BlogCategoryController@store')->name('admin.blog-category.store');
