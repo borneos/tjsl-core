@@ -37,6 +37,10 @@ Route::namespace('Admin')->middleware('auth')->group(function () {
         Route::put('/edit/{blog:slug}', 'BlogController@update')->name('admin.blog.update');
         Route::delete('/{blog:id}', 'BlogController@delete')->name('admin.blog.delete');
     });
+    Route::prefix('product')->group(function () {
+        Route::get('/', 'ProductController@index')->name('admin.product.index');
+        Route::get('/status/{id}/{status}', 'ProductController@product_status')->name('admin.product.status');
+    });
 });
 
 Route::get('/', 'LandingController@index')->name('index');
