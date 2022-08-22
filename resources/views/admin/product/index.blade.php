@@ -11,7 +11,7 @@
             <div>Master Product <span class="badge badge-pill badge-primary">{{ number_format($products->total(), 0, "", ".") }}</span><div class="page-title-subheading">List Master Product</div></div>
          </div>
          <div class="page-title-actions">
-             <a href="#" class="btn-shadow btn btn-info btn-lg">Add Product</a>
+             <a href="{{ route('admin.product.add') }}" class="btn-shadow btn btn-info btn-lg">Add Product</a>
          </div>
       </div>
    </div>
@@ -58,11 +58,11 @@
                 @forelse ($products as $product)
                     <tr>
                         <td>{{ $product->id }}</td>
-                        <td><img src="{{ URL::to($product->image) }}" width="32" height="32" alt=""></td>
+                        <td><img src="{{ URL::to($product->compressImage('w_32,h_32')) }}" width="32" height="32" alt=""></td>
                         <td>{{ $product->sku ?? '-' }}</td>
                         <td>{{ $product->merchant_name ?? '-' }}</td>
                         <td>{{ $product->name ?? '-' }}</td>
-                        <td title="{{ $product->description }}">{{ $product->description ? \Str::limit($product->description, 60, ' .') : '-' }}</td>
+                        <td title="{{  $product->description  }}">{!! $product->description ? \Str::limit($product->description, 60, ' .') : '-' !!}</td>
                         <td title="{{ $product->tags }}">{{ $product->tags ? \Str::limit($product->tags, 60, ' .') : '-' }}</td>
                         <td>{{ number_format($product->price, 0, ',', '.') }}</td>
                         <td>

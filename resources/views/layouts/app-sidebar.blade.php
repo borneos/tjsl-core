@@ -34,6 +34,9 @@
               <a class="category {{ count(request()->segments()) == 1 && request()->segments()[0] == 'category' ? 'mm-active' : '' }}" href="{{ route('admin.category.index') }}"><i class="metismenu-icon pe-7s-server"></i>Category</a>
           </li>
           <li>
+              <a class="merchant {{ count(request()->segments()) == 1 && request()->segments()[0] == 'merchant' ? 'mm-active' : '' }}" href="{{ route('admin.merchant.index') }}"><i class="metismenu-icon pe-7s-home"></i>Merchant</a>
+          </li>
+          <li>
               <a class="product {{ count(request()->segments()) == 1 && request()->segments()[0] == 'product' ? 'mm-active' : '' }}" href="{{ route('admin.product.index') }}"><i class="metismenu-icon pe-7s-server"></i>Product</a>
           </li>
           <li class="app-sidebar__heading">Blog</li>
