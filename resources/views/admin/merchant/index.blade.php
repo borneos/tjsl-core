@@ -11,7 +11,7 @@
             <div>Master Merchant <span class="badge badge-pill badge-primary">{{ number_format($merchants->total(), 0, "", ".") }}</span><div class="page-title-subheading">List Master Merchant</div></div>
          </div>
          <div class="page-title-actions">
-             <a href="{{ route('admin.category.add') }}" class="btn-shadow btn btn-info btn-lg">Add Merchant</a>
+             <a href="{{ route('admin.merchant.add') }}" class="btn-shadow btn btn-info btn-lg">Add Merchant</a>
          </div>
       </div>
    </div>

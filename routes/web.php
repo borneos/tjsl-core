@@ -22,6 +22,8 @@ Route::namespace('Admin')->middleware('auth')->group(function () {
     });
     Route::prefix('merchant')->group(function () {
         Route::get('/', 'MerchantController@index')->name('admin.merchant.index');
+        Route::get('/add', 'MerchantController@add')->name('admin.merchant.add');
+        Route::post('/add', 'MerchantController@store')->name('admin.merchant.store');
     });
         Route::prefix('blog-category')->group(function () {
         Route::get('/', 'BlogCategoryController@index')->name('admin.blog-category.index');

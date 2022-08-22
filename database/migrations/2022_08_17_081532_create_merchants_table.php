@@ -19,7 +19,10 @@ class CreateMerchantsTable extends Migration
             $table->string('type');
             $table->longText('image');
             $table->longText('seo_image');
+            $table->longText('additional_image');
+            $table->longText('additional_image_seo');
             $table->string('name');
+            $table->string('slug');
             $table->string('tagline');
             $table->longText('short_description');
             $table->longText('description');
