@@ -47,6 +47,7 @@ Route::namespace('Admin')->middleware('auth')->group(function () {
         Route::post('/add', 'ProductController@store')->name('admin.product.store');
         Route::get('/edit/{id}', 'ProductController@edit')->name('admin.product.edit');
         Route::put('/edit/{product:id}', 'ProductController@update')->name('admin.product.update');
+        Route::delete('/{product:id}', 'ProductController@delete')->name('admin.product.delete');
     });
 });
 

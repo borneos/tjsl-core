@@ -125,4 +125,14 @@ class ProductController extends Controller
         Alert::success('Success', 'Data Updated Successfully');
         return redirect()->route('admin.product.index');
     }
+    public function delete(Product $product)
+    {
+        if ($product->additional_image) {
+            foreach (json_decode($product->additional_image) as $item) {
+                Cloudinary::destroy($item->public_id);
+            }
+        }
+        $product->delete();
+        return response()->json(['status' => 200]);
+    }
 }
