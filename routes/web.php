@@ -45,6 +45,8 @@ Route::namespace('Admin')->middleware('auth')->group(function () {
         Route::get('/status/{id}/{status}', 'ProductController@product_status')->name('admin.product.status');
         Route::get('/add', 'ProductController@add')->name('admin.product.add');
         Route::post('/add', 'ProductController@store')->name('admin.product.store');
+        Route::get('/edit/{id}', 'ProductController@edit')->name('admin.product.edit');
+        Route::put('/edit/{product:id}', 'ProductController@update')->name('admin.product.update');
     });
 });
 

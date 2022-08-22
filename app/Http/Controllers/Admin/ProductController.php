@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Traits\CloudinaryImage;
 use App\Models\{Merchant, Product};
 use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
 use Illuminate\Http\Request;
@@ -10,6 +11,8 @@ use RealRashid\SweetAlert\Facades\Alert;
 
 class ProductController extends Controller
 {
+    use CloudinaryImage;
+
     public function index(Request $request)
     {
         $filter = $request->query('filter');
@@ -49,34 +52,9 @@ class ProductController extends Controller
         ]);
 
         if ($request->image) {
-            foreach ($request->image as $item) {
-                $path_name = $item->getRealPath();
-                $image = Cloudinary::upload($path_name, ["folder" => 'tjsl-core/products', "overwrite" => TRUE, "resource_type" => "image"]);
-                $image_url = $image->getSecurePath();
-                $ext = substr($image_url, -3);
-                $ext_jpeg = substr($image_url, -4);
-
-                if ($ext == "jpg") {
-                    $image_url_webp = substr($image_url, 0, -3) . "webp";
-                } else if ($ext == "png") {
-                    $image_url_webp = substr($image_url, 0, -3) . "webp";
-                } elseif ($ext == "svg") {
-                    $image_url_webp = substr($image_url, 0, -3) . "webp";
-                } elseif ($ext_jpeg == "jpeg") {
-                    $image_url_webp = substr($image_url, 0, -4) . "webp";
-                };
-                $additional_image[] = [
-                    'https'     =>  $image->getSecurePath(),
-                    'public_id' =>  $image->getPublicId(),
-                    'file_type' =>  $image->getFileType(),
-                    'size'      =>  $image->getReadableSize(),
-                    'width'     =>  $image->getWidth(),
-                    'height'    =>  $image->getHeight(),
-                    'extension' =>  $image->getExtension(),
-                    'webp'      =>  $image_url_webp
-                ];
-                $result_image[] = ['url' => $image_url];
-            };
+            $image = $this->UploadImageMultipleCloudinary(['folder' => 'tjsl-core/products', 'images' => $request->image]);
+            $result_image = json_encode($image['result_image']);
+            $additional_image = json_encode($image['additional_image']);
         } else {
             $result_image = '';
             $additional_image = '';
@@ -92,11 +70,59 @@ class ProductController extends Controller
             'name' => $request->name,
             'description' => $request->description ?? '',
             'price' => $request->price,
-            'image' => $result_image ? json_encode($result_image) : '',
-            'additional_image' => $additional_image ? json_encode($additional_image) : '',
+            'image' => $result_image,
+            'additional_image' => $additional_image,
             'status' => $request->status == 'on' ? 1 : 0
         ]);
         Alert::success('Success', 'Data Created Successfully');
+        return redirect()->route('admin.product.index');
+    }
+    public function edit($id)
+    {
+        $product = Product::find($id);
+        return view('admin.product.edit', [
+            'merchants' => Merchant::all(),
+            'product'   => $product,
+            'tags'      => $product->tags ? explode(', ', $product->tags) : null,
+            'additional_image' => $product->additional_image ? json_decode($product->additional_image) : null
+        ]);
+    }
+    public function update(Request $request, Product $product)
+    {
+        $request->validate([
+            'merchant' => 'required',
+            'name'     => 'required',
+            'price'    => 'required'
+        ]);
+
+        if ($request->image) {
+            $image = $this->UpdateImageMultipleCloudinary([
+                'images'     => $request->image,
+                'folder'     => 'tjsl-core/products',
+                'collection' => $product
+            ]);
+            $result_image     = json_encode($image['result_image']);
+            $additional_image = json_encode($image['additional_image']);
+        } else {
+            $result_image     = $product->image;
+            $additional_image = $product->additional_image;
+        };
+
+        $merchant = Merchant::find($request->merchant);
+
+        $product->update([
+            'sku' => $request->sku ?? '',
+            'merchant_id' => $merchant->id,
+            'merchant_name' => $merchant->name,
+            'tags'  => $request->tags ? implode(", ", $request->tags) : $product->tags,
+            'name' => $request->name,
+            'description' => $request->description ?? '',
+            'price' => $request->price,
+            'image' => $result_image,
+            'additional_image' => $additional_image,
+            'status' => $request->status == 'on' ? 1 : 0
+        ]);
+        Alert::success('Success', 'Data Updated Successfully');
         return redirect()->route('admin.product.index');
     }
 }
