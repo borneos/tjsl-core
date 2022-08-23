@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Traits\CloudinaryImage;
+use App\Http\Traits\{CloudinaryImage, TraitsProduct};
 use App\Models\{Merchant, Product};
 use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
 use Illuminate\Http\Request;
@@ -11,23 +11,22 @@ use RealRashid\SweetAlert\Facades\Alert;
 
 class ProductController extends Controller
 {
-    use CloudinaryImage;
+    use CloudinaryImage, TraitsProduct;
 
     public function index(Request $request)
     {
-        $filter = $request->query('filter');
-        if (!empty($filter)) {
-            $products = Product::sortable()
-                ->where('products.sku', 'like', '%' . $filter . '%')
-                ->orWhere('products.name', 'like', '%' . $filter . '%')
-                ->orWhere('products.merchant_name', 'like', '%' . $filter . '%')
-                ->orWhere('products.tags', 'like', '%' . $filter . '%')
-                ->orWhere('products.price', 'like', '%' . $filter . '%')
-                ->paginate(10);
-        } else {
-            $products = Product::sortable()->paginate(10);
-        }
-        return view('admin.product.index', compact('products', 'filter'));
+        $search = $this->SearchProductList([
+            'filter' => $request->query('filter'),
+            'merchant' => $request->query('merchant'),
+            'status' => $request->query('status')
+        ]);
+        return view('admin.product.index', [
+            'merchants' => Merchant::all(),
+            'filter'    => $search['filter'],
+            'merchant'  => $search['merchant'],
+            'status'    => $search['status'] == null ? 404 : $search['status'],
+            'products'  => $search['products']
+        ]);
     }
     public function product_status(Request $request)
     {
