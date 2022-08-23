@@ -16,4 +16,8 @@ class Merchant extends Model
     protected $fillable = [
         'name', 'slug', 'description', 'image', 'additional_image'
     ];
+    public function category()
+    {
+        return $this->belongsTo(Category::class, 'id_category');
+    }
 }
