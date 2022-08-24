@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
 use App\Http\Traits\{TraitsMerchant, FormatMeta};
-use App\Models\Merchant;
 use Illuminate\Http\Request;
 
 class MerchantController extends Controller
@@ -14,7 +13,11 @@ class MerchantController extends Controller
     public function get_merchants(Request $request)
     {
         $perPage = $request->perPage ?? 10;
-        $merchant = Merchant::paginate($perPage);
+        $request_q = $request->q ?? null; // merchant name
+        $slug_category = $request->category ?? null; // slug category
+        $sort = $request->sort ?? 'desc';
+        $merchant = $this->restQueryMerchantlist(compact('perPage', 'request_q', 'slug_category', 'sort'));
+
         if ($merchant->count() == 0) {
             return response()->json(['status' => 'error', 'meta' => null, 'data' => null]);
         } else {
