@@ -20,6 +20,7 @@ trait TraitsMerchant
                 'image' => $result->image ? $result->image : null,
                 'seoImage' => $result->seo_image ? $result->seo_image : null,
                 'name' => $result->name,
+                'slug' => $result->slug,
                 'tagline' => $result->tagline,
                 'shortDescription' => $result->short_description,
                 'description' => $result->description,

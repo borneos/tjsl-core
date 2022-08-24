@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
 use App\Http\Traits\{TraitsBlog, FormatMeta};
+use App\Models\Blog;
 use Illuminate\Http\Request;
 
 class BlogController extends Controller
@@ -32,6 +33,17 @@ class BlogController extends Controller
     }
     public function get_blog_detail(Request $request)
     {
-        return $request->slug;
+        $perPage = $request->perPage ?? 1;
+        if (Blog::where([['slug', '=', $request->slug], ['status', '=', 1]])->exists()) {
+            $blog = Blog::where([['slug', '=', $request->slug], ['status', '=', 1]])->paginate($perPage);
+            $meta = $this->metaBlogList([
+                'page'    => $request->page == null ? null : $request->page,
+                'perPage' => $perPage,
+                'total'   => $blog->total()
+            ]);
+            return response()->json(['status' => 'success', 'meta' => $meta, 'data' => $this->resultBlogList($blog)]);
+        } else {
+            return response()->json(['status' => 'error', 'meta' => null, 'data' => null]);
+        }
     }
 }
