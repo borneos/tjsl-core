@@ -39,7 +39,7 @@
                            @enderror
                         </div>
                     </div>
-                    <div class="col-md-5">
+                    <div class="col-md-4">
                         <div class="form-group">
                            <label for="name">Product Name</label>
                            <input type="text" id="name" name="name" value="{{ $product->name }}" class="form-control">
@@ -48,13 +48,10 @@
                            @enderror
                         </div>
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-4">
                         <div class="form-group">
-                           <label for="price">Price</label>
-                           <input type="number" id="price" name="price" value="{{ $product->price }}" class="form-control">
-                           @error('price')
-                              <span class="text-danger mt-2">{{ $message }}</span>
-                           @enderror
+                           <label for="slug">Slug</label>
+                           <input type="text" id="slug" name="slug" value="{{ $product->slug }}" class="form-control" readonly>
                         </div>
                     </div>
                   </div>
@@ -65,7 +62,16 @@
                             <input type="text" name="sku" id="sku" value="{{ $product->sku }}" class="form-control">
                         </div>
                     </div>
-                    <div class="col-md-8">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                           <label for="price">Price</label>
+                           <input type="number" id="price" name="price" value="{{ $product->price }}" class="form-control">
+                           @error('price')
+                              <span class="text-danger mt-2">{{ $message }}</span>
+                           @enderror
+                        </div>
+                    </div>
+                    <div class="col-md-4">
                         <div class="form-group">
                            <label for="tags">Tags</label>
                            <select class="form-control" id="tags" name="tags[]" multiple="multiple">
@@ -150,5 +156,35 @@
          tags: true,
          tokenSeparators: [',', ' ']
       });
+        document.getElementById("name").addEventListener("input", function () {
+            document.getElementById("slug").value = string_to_slug(this.value);
+        });
+        function string_to_slug(str) {
+            str = str.replace(/^\s+|\s+$/g, ""); // trim
+            str = str.toLowerCase();
+
+            // remove accents, swap ñ for n, etc
+            var from = "àáäâèéëêìíïîòóöôùúüûñç·/_,:;";
+            var to = "aaaaeeeeiiiioooouuuunc------";
+            for (var i = 0, l = from.length; i < l; i++) {
+                str = str.replace(new RegExp(from.charAt(i), "g"), to.charAt(i));
+            }
+
+            str = str
+                .replace(/[^a-z0-9 -]/g, "") // remove invalid chars
+                .replace(/\s+/g, "-") // collapse whitespace and replace by -
+                .replace(/-+/g, "-"); // collapse dashes
+            str = str+`-`+makeid(10);
+            return str;
+        }
+        function makeid(length) {
+          var result           = '';
+          var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+          var charactersLength = characters.length;
+          for ( var i = 0; i < length; i++ ) {
+            result += characters.charAt(Math.floor(Math.random() * charactersLength));
+          }
+          return result;
+        }
     </script>
 @endsection
