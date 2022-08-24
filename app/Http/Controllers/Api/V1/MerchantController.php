@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
 use App\Http\Traits\{TraitsMerchant, FormatMeta};
+use App\Models\Merchant;
 use Illuminate\Http\Request;
 
 class MerchantController extends Controller
@@ -27,6 +28,21 @@ class MerchantController extends Controller
                 'total'   => $merchant->total()
             ]);
             return response()->json(['status' => 'success', 'meta' => $meta, 'data' => $this->resultMerchantList($merchant)]);
+        }
+    }
+    public function get_merchant_detail(Request $request)
+    {
+        $perPage = $request->perPage ?? 1;
+        if (Merchant::where('slug', '=', $request->slug)->exists()) {
+            $merchant = Merchant::where('slug', '=', $request->slug)->paginate($perPage);
+            $meta = $this->metaMerchantList([
+                'page'    => $request->page == null ? null : $request->page,
+                'perPage' => $perPage,
+                'total'   => $merchant->total()
+            ]);
+            return response()->json(['status' => 'success', 'meta' => $meta, 'data' => $this->resultMerchantList($merchant)]);
+        } else {
+            return response()->json(['status' => 'error', 'meta' => null, 'data' => null]);
         }
     }
 }
