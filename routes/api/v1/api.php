@@ -17,4 +17,7 @@ Route::group(['namespace' => 'Api\V1'], function () {
         Route::get('/', 'MerchantController@get_merchants');
         Route::get('/{slug}', 'MerchantController@get_merchant_detail');
     });
+    Route::prefix('products')->group(function () {
+        Route::get('/', 'ProductController@get_products');
+    });
 });
