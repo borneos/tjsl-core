@@ -47,7 +47,7 @@ trait TraitsMerchant
         return $results;
     }
 
-    public function restQueryMerchantlist($data)
+    public function QueryMerchantlist($data)
     {
         $request_q = $data['request_q']; //merchant name
         $slug_category = $data['slug_category']; //slug category

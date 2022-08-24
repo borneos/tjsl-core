@@ -16,7 +16,7 @@ class MerchantController extends Controller
         $request_q = $request->q ?? null; // merchant name
         $slug_category = $request->category ?? null; // slug category
         $sort = $request->sort ?? 'desc';
-        $merchant = $this->restQueryMerchantlist(compact('perPage', 'request_q', 'slug_category', 'sort'));
+        $merchant = $this->QueryMerchantlist(compact('perPage', 'request_q', 'slug_category', 'sort'));
 
         if ($merchant->count() == 0) {
             return response()->json(['status' => 'error', 'meta' => null, 'data' => null]);

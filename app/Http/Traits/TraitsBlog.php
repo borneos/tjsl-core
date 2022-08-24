@@ -34,4 +34,51 @@ trait TraitsBlog
             }
         }
     }
+    public function QueryBloglist($data)
+    {
+        $request_q = $data['request_q']; // for title blog
+        $slug_category = $data['slug_category']; // for slug blog-category
+
+        if ($request_q && $slug_category) {
+            return Blog::whereHas('category', function ($q) use ($slug_category) {
+                return $q->where('slug', '=', $slug_category);
+            })
+                ->where('title', '=', $request_q)
+                ->orderBy('id', $data['sort'])
+                ->paginate($data['perPage']);
+        } elseif ($request_q) {
+            return Blog::where('title', '=', $request_q)->orderBy('id', $data['sort'])->paginate($data['perPage']);
+        } elseif ($slug_category) {
+            return Blog::whereHas('category', function ($q) use ($slug_category) {
+                return $q->where('slug', '=', $slug_category);
+            })
+                ->orderBy('id', $data['sort'])
+                ->paginate($data['perPage']);
+        } else {
+            return Blog::orderBy('id', $data['sort'])->paginate($data['perPage']);
+        }
+    }
+    public function resultBlogList($data)
+    {
+        foreach ($data as $result) {
+            $results[] = [
+                'id' => $result->id,
+                'title' => $result->title,
+                'slug' => $result->slug,
+                'shortDescription' => $result->short_description ?? null,
+                'description' => $result->description ?? null,
+                'category' => [
+                    'id' => $result->category_id ? $result->category_id : null,
+                    'name' => $result->category_id && $result->category->name ? $result->category->name : null,
+                    'slug' => $result->category_id && $result->category->slug ? $result->category->slug : null
+                ],
+                'image' => $result->image ? $result->image : null,
+                'additionalImage' => $result->additional_image ? json_decode($result->additional_image) : null,
+                'author' => $result->author ?? null,
+                'tags' => $result->tags ?? null,
+                'status' => $result->status
+            ];
+        };
+        return $results;
+    }
 }
