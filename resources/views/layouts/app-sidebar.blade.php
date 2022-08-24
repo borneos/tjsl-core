@@ -3,7 +3,7 @@
         <ul class="vertical-nav-menu">
             <li class="app-sidebar__heading">Menu</li>
             <li>
-              <a href="/admin" class="admin {{ count(request()->segments()) == 1 && request()->segments()[0] == 'admin' ? 'mm-active' : '' }}"><i class="metismenu-icon pe-7s-rocket"></i>Dashboards</a>
+              <a href="/dashboard" class="dashboard {{ count(request()->segments()) == 1 && request()->segments()[0] == 'dashboard' ? 'mm-active' : '' }}"><i class="metismenu-icon pe-7s-rocket"></i>Dashboards</a>
             </li>
             <li class="app-sidebar__heading">Orders</li>
             <li>

@@ -14,4 +14,14 @@ trait FormatMeta
             ]
         ];
     }
+    public function metaMerchantList($data)
+    {
+        return [
+            'pagination' => [
+                'page'    => $data['page'] == null ? 1 : (int)$data['page'],
+                'perPage' => (int)$data['perPage'],
+                'total'   => $data['total']
+            ]
+        ];
+    }
 }
