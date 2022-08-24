@@ -43,7 +43,7 @@ trait TraitsBlog
             return Blog::whereHas('category', function ($q) use ($slug_category) {
                 return $q->where('slug', '=', $slug_category);
             })
-                ->where('title', '=', $request_q)
+                ->where([['title', '=', $request_q], ['status', '=', 1]])
                 ->orderBy('id', $data['sort'])
                 ->paginate($data['perPage']);
         } elseif ($request_q) {
@@ -52,10 +52,11 @@ trait TraitsBlog
             return Blog::whereHas('category', function ($q) use ($slug_category) {
                 return $q->where('slug', '=', $slug_category);
             })
+                ->where('status', '=', 1)
                 ->orderBy('id', $data['sort'])
                 ->paginate($data['perPage']);
         } else {
-            return Blog::orderBy('id', $data['sort'])->paginate($data['perPage']);
+            return Blog::where('status', '=', 1)->orderBy('id', $data['sort'])->paginate($data['perPage']);
         }
     }
     public function resultBlogList($data)
