@@ -30,4 +30,8 @@ class BlogController extends Controller
             return response()->json(['status' => 'success', 'meta' => $meta, 'data' => $this->resultBlogList($blogs)]);
         }
     }
+    public function get_blog_detail(Request $request)
+    {
+        return $request->slug;
+    }
 }
