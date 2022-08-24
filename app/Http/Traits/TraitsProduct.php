@@ -127,7 +127,7 @@ trait TraitsProduct
                 'slug' => $result->slug,
                 'description' => $result->description ? $result->description : null,
                 'price' => $result->price,
-                'image' => $result->image ? $result->image : null,
+                'image' => $result->image ? json_decode($result->image) : null,
                 'additionalImage' => $result->additional_image ? json_decode($result->additional_image) : null,
                 'status' => $result->status
             ];
