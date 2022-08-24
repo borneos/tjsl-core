@@ -86,4 +86,52 @@ trait TraitsProduct
             }
         }
     }
+    public function QueryProductlist($data)
+    {
+        $request_q = $data['request_q']; //product name
+        $slug_merchant = $data['slug_merchant']; //slug merchant
+
+        if ($request_q && $slug_merchant) {
+            return Product::whereHas('merchant', function ($q) use ($slug_merchant) {
+                return $q->where('slug', '=', $slug_merchant);
+            })
+                ->where([['name', '=', $request_q], ['status', '=', 1]])
+                ->orderBy('id', $data['sort'])
+                ->paginate($data['perPage']);
+        } elseif ($request_q) {
+            return Product::where([['name', '=', $request_q], ['status', '=', 1]])->orderBy('id', $data['sort'])->paginate($data['perPage']);
+        } elseif ($slug_merchant) {
+            return Product::whereHas('merchant', function ($q) use ($slug_merchant) {
+                return $q->where('slug', '=', $slug_merchant);
+            })
+                ->where('status', '=', 1)
+                ->orderBy('id', $data['sort'])
+                ->paginate($data['perPage']);
+        } else {
+            return Product::where('status', '=', 1)->orderBy('id', $data['sort'])->paginate($data['perPage']);
+        }
+    }
+    public function resultProductList($data)
+    {
+        foreach ($data as $result) {
+            $results[] = [
+                'id' => $result->id,
+                'sku' => $result->sku ? $result->sku : null,
+                'merchant' => [
+                    'id' => $result->merchant_id,
+                    'name' => $result->merchant_id && $result->merchant->name ? $result->merchant->name : null,
+                    'slug' => $result->merchant_id && $result->merchant->slug ? $result->merchant->slug : null
+                ],
+                'tags' => $result->tags ? $result->tags : null,
+                'name' => $result->name,
+                'slug' => $result->slug,
+                'description' => $result->description ? $result->description : null,
+                'price' => $result->price,
+                'image' => $result->image ? json_decode($result->image) : null,
+                'additionalImage' => $result->additional_image ? json_decode($result->additional_image) : null,
+                'status' => $result->status
+            ];
+        }
+        return $results;
+    }
 }

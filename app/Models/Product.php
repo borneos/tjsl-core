@@ -19,6 +19,12 @@ class Product extends Model
     public $sortable = [
         'sku', 'name', 'merchant_name', 'tags', 'price'
     ];
+
+    public function merchant()
+    {
+        return $this->belongsTo(Merchant::class, 'merchant_id');
+    }
+
     public function compressImage($setSize)
     {
         if ($this->additional_image) {
