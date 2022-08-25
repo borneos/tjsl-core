@@ -2,6 +2,8 @@
 
 namespace App\Http\Traits;
 
+use App\Models\Merchant;
+
 trait TraitsMerchant
 {
     public function resultMerchantList($data)
@@ -18,6 +20,7 @@ trait TraitsMerchant
                 'image' => $result->image ? $result->image : null,
                 'seoImage' => $result->seo_image ? $result->seo_image : null,
                 'name' => $result->name,
+                'slug' => $result->slug,
                 'tagline' => $result->tagline,
                 'shortDescription' => $result->short_description,
                 'description' => $result->description,
@@ -43,5 +46,30 @@ trait TraitsMerchant
             ];
         }
         return $results;
+    }
+
+    public function QueryMerchantlist($data)
+    {
+        $request_q = $data['request_q']; //merchant name
+        $slug_category = $data['slug_category']; //slug category
+
+        if ($request_q && $slug_category) {
+            return Merchant::whereHas('category', function ($q) use ($slug_category) {
+                return $q->where('slug', '=', $slug_category);
+            })
+                ->where('name', '=', $request_q)
+                ->orderBy('id', $data['sort'])
+                ->paginate($data['perPage']);
+        } elseif ($request_q) {
+            return Merchant::where('name', '=', $request_q)->orderBy('id', $data['sort'])->paginate($data['perPage']);
+        } elseif ($slug_category) {
+            return Merchant::whereHas('category', function ($q) use ($slug_category) {
+                return $q->where('slug', '=', $slug_category);
+            })
+                ->orderBy('id', $data['sort'])
+                ->paginate($data['perPage']);
+        } else {
+            return Merchant::orderBy('id', $data['sort'])->paginate($data['perPage']);
+        }
     }
 }
