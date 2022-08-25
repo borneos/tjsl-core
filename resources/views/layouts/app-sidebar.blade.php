@@ -3,7 +3,7 @@
         <ul class="vertical-nav-menu">
             <li class="app-sidebar__heading">Menu</li>
             <li>
-              <a href="/admin" class="admin {{ count(request()->segments()) == 1 && request()->segments()[0] == 'admin' ? 'mm-active' : '' }}"><i class="metismenu-icon pe-7s-rocket"></i>Dashboards</a>
+              <a href="/dashboard" class="dashboard {{ count(request()->segments()) == 1 && request()->segments()[0] == 'dashboard' ? 'mm-active' : '' }}"><i class="metismenu-icon pe-7s-rocket"></i>Dashboards</a>
             </li>
             <li class="app-sidebar__heading">Orders</li>
             <li>
@@ -34,7 +34,10 @@
               <a class="category {{ count(request()->segments()) == 1 && request()->segments()[0] == 'category' ? 'mm-active' : '' }}" href="{{ route('admin.category.index') }}"><i class="metismenu-icon pe-7s-server"></i>Category</a>
           </li>
           <li>
-              <a class="category {{ count(request()->segments()) == 1 && request()->segments()[0] == 'merchant' ? 'mm-active' : '' }}" href="{{ route('admin.merchant.index') }}"><i class="metismenu-icon pe-7s-home"></i>Merchant</a>
+              <a class="merchant {{ count(request()->segments()) == 1 && request()->segments()[0] == 'merchant' ? 'mm-active' : '' }}" href="{{ route('admin.merchant.index') }}"><i class="metismenu-icon pe-7s-home"></i>Merchant</a>
+          </li>
+          <li>
+              <a class="product {{ count(request()->segments()) == 1 && request()->segments()[0] == 'product' ? 'mm-active' : '' }}" href="{{ route('admin.product.index') }}"><i class="metismenu-icon pe-7s-server"></i>Product</a>
           </li>
           <li class="app-sidebar__heading">Blog</li>
         </ul>

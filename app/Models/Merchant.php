@@ -16,4 +16,8 @@ class Merchant extends Model
     protected $fillable = [
         'id_category', 'type', 'image', 'seo_image', 'additional_image', 'additional_image_seo', 'name', 'slug', 'tagline', 'short_description', 'description', 'biography', 'telp', 'address', 'city', 'district', 'lat', 'long', 'owner_name', 'owner_telp', 'owner_email', 'owner_address', 'soc_fb', 'soc_ig', 'soc_twitter', 'website', 'link_borneos', 'link_tokopedia', 'link_shopee', 'link_bukalapak'
     ];
+    public function category()
+    {
+        return $this->belongsTo(Category::class, 'id_category');
+    }
 }

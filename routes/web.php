@@ -12,6 +12,9 @@ Route::get('/logout', function () {
 Auth::routes();
 
 Route::namespace('Admin')->middleware('auth')->group(function () {
+    Route::get('/dashboard', function () {
+        return view('admin.dashboard');
+    });
     Route::prefix('category')->group(function () {
         Route::get('/', 'CategoryController@index')->name('admin.category.index');
         Route::get('/add', 'CategoryController@add')->name('admin.category.add');
@@ -28,7 +31,7 @@ Route::namespace('Admin')->middleware('auth')->group(function () {
         Route::put('/edit/{merchant:slug}', 'MerchantController@update')->name('admin.merchant.update');
         Route::delete('/{merchant:id}', 'MerchantController@delete')->name('admin.merchant.delete');
     });
-        Route::prefix('blog-category')->group(function () {
+    Route::prefix('blog-category')->group(function () {
         Route::get('/', 'BlogCategoryController@index')->name('admin.blog-category.index');
         Route::get('/add', 'BlogCategoryController@add')->name('admin.blog-category.add');
         Route::post('/add', 'BlogCategoryController@store')->name('admin.blog-category.store');
@@ -44,6 +47,15 @@ Route::namespace('Admin')->middleware('auth')->group(function () {
         Route::get('/edit/{blog:slug}', 'BlogController@edit')->name('admin.blog.edit');
         Route::put('/edit/{blog:slug}', 'BlogController@update')->name('admin.blog.update');
         Route::delete('/{blog:id}', 'BlogController@delete')->name('admin.blog.delete');
+    });
+    Route::prefix('product')->group(function () {
+        Route::get('/', 'ProductController@index')->name('admin.product.index');
+        Route::get('/status/{id}/{status}', 'ProductController@product_status')->name('admin.product.status');
+        Route::get('/add', 'ProductController@add')->name('admin.product.add');
+        Route::post('/add', 'ProductController@store')->name('admin.product.store');
+        Route::get('/edit/{id}', 'ProductController@edit')->name('admin.product.edit');
+        Route::put('/edit/{product:id}', 'ProductController@update')->name('admin.product.update');
+        Route::delete('/{product:id}', 'ProductController@delete')->name('admin.product.delete');
     });
 });
 
