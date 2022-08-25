@@ -140,17 +140,20 @@
                                 @enderror
                             </div>
                             <div class="form-group">
-                                <label for="lat">Latitude</label>
-                                <input type="text" id="lat" name="lat" value="{{ old('lat') }}"
-                                    class="form-control">
+                                <label for="coordinate">Coordinate Point</label>
+                                <div class="input-group">
+                                    <input type="text" id="latitude" name="lat" value="{{ old('lat') }}"
+                                        class="form-control" placeholder="Latitude" readonly>
+                                    <input type="text" id="longitude" name="long" value="{{ old('long') }}"
+                                        class="form-control" placeholder="Longitude" readonly>
+                                    <div class="input-group-append">
+                                        <button type="button" id="btnCoordinate" class="btn btn-success"
+                                            data-toggle="modal" data-target="#addCoordinate">Add Coordinate</button>
+                                    </div>
+                                </div>
                                 @error('lat')
                                     <span class="text-danger mt-2">{{ $message }}</span>
                                 @enderror
-                            </div>
-                            <div class="form-group">
-                                <label for="long">Longitude</label>
-                                <input type="text" id="long" name="long" value="{{ old('long') }}"
-                                    class="form-control">
                                 @error('long')
                                     <span class="text-danger mt-2">{{ $message }}</span>
                                 @enderror
@@ -267,6 +270,33 @@
             </div>
         </form>
     @endsection
+    @section('extend')
+        <div class="modal fade" id="addCoordinate" tabindex="-1" role="dialog" aria-labelledby="addCoordinate"
+            aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="addCoordinate">Add Coordinate</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <input type="text" id="address-input" name="address" class="form-control map-input"
+                            onchange="hideMaps()" autocomplete="off" placeholder="Your Address">
+                        <input type="hidden" name="latitude" id="address-latitude" />
+                        <input type="hidden" name="longitude" id="address-longitude" /><br>
+                        <div style="width: 100%; height: 400px; display: none;" id="address-map"></div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="mb-2 mr-2 btn btn-icon btn-primary btn-lg" data-dismiss="modal"
+                            onclick="setCoordinate()"><i class="pe-7s-diskette btn-icon-wrapper"></i>Save
+                            Coordinate</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    @endsection
     @section('js')
         <script>
             function readURL(input) {
@@ -300,6 +330,39 @@
 
             function convertToSlug(Text) {
                 return Text.toLowerCase().replace(/ /g, '-').replace(/[^\w-]+/g, '');
+            }
+            $(document).ready(function() {
+                deleteCoordinate();
+            });
+
+            function hideMaps() {
+                document.getElementById('address-map').style.display = ""
+            }
+
+            function getCookie(cname) {
+                let name = cname + "=";
+                let ca = document.cookie.split(';');
+                for (let i = 0; i < ca.length; i++) {
+                    let c = ca[i];
+                    while (c.charAt(0) == ' ') {
+                        c = c.substring(1);
+                    }
+                    if (c.indexOf(name) == 0) {
+                        return c.substring(name.length, c.length);
+                    }
+                }
+                return "";
+            }
+            let lat = getCookie("lat");
+            let lng = getCookie("lng");
+            document.getElementById('address-latitude').value = lat;
+            document.getElementById('address-longitude').value = lng;
+            document.getElementById('latitude').value = lat;
+            document.getElementById('longitude').value = lng;
+            if (lat != "") {
+                document.getElementById('btnCoordinate').innerHTML = "Edit Coordinate"
+            } else {
+                document.getElementById('btnCoordinate').innerHTML = "Add Coordinate"
             }
         </script>
     @endsection

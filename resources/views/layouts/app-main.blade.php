@@ -210,6 +210,12 @@
                 });
             })
         })
+
+        function loading() {
+            $.blockUI({
+                message: $('.body-block-loading')
+            });
+        }
     </script>
 </body>
 
