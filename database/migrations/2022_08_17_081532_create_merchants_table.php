@@ -45,6 +45,7 @@ class CreateMerchantsTable extends Migration
             $table->string('link_tokopedia')->nullable();
             $table->string('link_shopee')->nullable();
             $table->string('link_bukalapak')->nullable();
+            $table->tinyInteger('status')->default('1');
             $table->timestamps();
         });
     }

@@ -30,6 +30,7 @@ Route::namespace('Admin')->middleware('auth')->group(function () {
         Route::get('/edit/{merchant:slug}', 'MerchantController@edit')->name('admin.merchant.edit');
         Route::put('/edit/{merchant:slug}', 'MerchantController@update')->name('admin.merchant.update');
         Route::delete('/{merchant:id}', 'MerchantController@delete')->name('admin.merchant.delete');
+        Route::get('/status/{merchant:id}/{status}', 'MerchantController@status')->name('admin.merchant.status');
     });
     Route::prefix('blog-category')->group(function () {
         Route::get('/', 'BlogCategoryController@index')->name('admin.blog-category.index');

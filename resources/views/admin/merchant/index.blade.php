@@ -52,6 +52,7 @@
                             <th>@sortablelink('name', 'Merchant Name')</th>
                             <th>@sortablelink('slug', 'Merchant Slug')</th>
                             <th>@sortablelink('description', 'Description')</th>
+                            <th>@sortablelink('status', 'Status')</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -64,7 +65,15 @@
                                 <td>{{ $merchant->name ?? '-' }}</td>
                                 <td>{{ $merchant->slug ?? '-' }}</td>
                                 <td title="{{ $merchant->description }}">
-                                    {{ $merchant->description ? \Str::limit($merchant->description, 60, ' .') : '-' }}</td>
+                                    {{ $merchant->description ? \Str::limit($merchant->description, 60, '...') : '-' }}</td>
+                                <td>
+                                    <label class="m-auto align-middle" for="statusCheckbox{{ $merchant->id }}">
+                                        <input type="checkbox" data-toggle="toggle" data-size="small"
+                                            onChange="location.href='{{ route('admin.merchant.status', [$merchant['id'], $merchant->status ? 0 : 1]) }}'"
+                                            id="statusCheckbox{{ $merchant->id }}"
+                                            {{ $merchant->status ? 'checked' : '' }}>
+                                    </label>
+                                </td>
                                 <td>
                                     <a href="{{ route('admin.merchant.edit', $merchant) }}" class="btn btn-warning btn-sm"
                                         title="Edit ?"><i style="font-size: 14px" class="text-white pe-7s-note"></i></a>

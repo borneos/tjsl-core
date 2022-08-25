@@ -198,7 +198,7 @@ class MerchantController extends Controller
         return redirect()->route('admin.merchant.index');
     }
 
-     public function delete(Merchant $merchant)
+    public function delete(Merchant $merchant)
     {
         if ($merchant->image && $merchant->additional_image) {
             $key = json_decode($merchant->additional_image);
@@ -210,5 +210,13 @@ class MerchantController extends Controller
         }
         $merchant->delete();
         return response()->json(['status' => 200]);
+    }
+
+    public function status(Merchant $merchant, Request $request)
+    {
+        $merchant->update(['status' => $request->status]);
+
+        Alert::toast('Status Updated', 'success');
+        return redirect('/merchant');
     }
 }
