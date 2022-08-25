@@ -59,7 +59,7 @@
                         <td>{{ $merchant->slug ?? '-' }}</td>
                         <td title="{{ $merchant->description }}">{{ $merchant->description ? \Str::limit($merchant->description, 60, ' .') : '-' }}</td>
                         <td>
-                           <a href="{{ route('admin.category.edit',$merchant) }}" class="btn btn-warning btn-sm" title="Edit ?"><i style="font-size: 14px" class="text-white pe-7s-note"></i></a>
+                           <a href="{{ route('admin.merchant.edit',$merchant) }}" class="btn btn-warning btn-sm" title="Edit ?"><i style="font-size: 14px" class="text-white pe-7s-note"></i></a>
                            <button type="button" onclick="delete_category({{$merchant->id}})" class="btn btn-danger btn-sm" title="Delete ?"><i style="font-size: 14px" class="pe-7s-trash"></i></button>
                         </td>
                     </tr>
