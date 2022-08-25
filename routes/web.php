@@ -24,6 +24,8 @@ Route::namespace('Admin')->middleware('auth')->group(function () {
         Route::get('/', 'MerchantController@index')->name('admin.merchant.index');
         Route::get('/add', 'MerchantController@add')->name('admin.merchant.add');
         Route::post('/add', 'MerchantController@store')->name('admin.merchant.store');
+        Route::get('/edit/{merchant:slug}', 'MerchantController@edit')->name('admin.merchant.edit');
+        Route::put('/edit/{merchant:slug}', 'MerchantController@update')->name('admin.merchant.update');
     });
         Route::prefix('blog-category')->group(function () {
         Route::get('/', 'BlogCategoryController@index')->name('admin.blog-category.index');
