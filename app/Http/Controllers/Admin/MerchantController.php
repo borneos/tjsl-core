@@ -39,8 +39,8 @@ class MerchantController extends Controller
         $request->validate([
             'category'          => 'required',
             'type'              => 'required',
-            'image'             => 'image|mimes:jpeg,png,jpg,svg|max:8192',
-            'seo_image'         => 'image|mimes:jpeg,png,jpg,svg|max:8192',
+            'image'             => 'image|mimes:jpeg,png,jpg,svg|max:3072',
+            'seo_image'         => 'image|mimes:jpeg,png,jpg,svg|max:3072',
             'name'              => 'required',
             'slug'              => 'required',
             'tagline'           => 'required',
@@ -63,12 +63,18 @@ class MerchantController extends Controller
             $image = $this->UploadImageCloudinary(['image' => $request->file('image'), 'folder' => 'tjsl-core/merchants/image']);
             $image_url = $image['url'];
             $additional_image = $image['additional_image'];
+        }else{
+            $image_url = '';
+            $additional_image = '';
         }
 
         if ($request->file('seo_image')) {
             $image_seo = $this->UploadImageCloudinary(['image' => $request->file('seo_image'), 'folder' => 'tjsl-core/merchants/seo_image']);
             $image_url_seo = $image_seo['url'];
             $additional_image_seo = $image_seo['additional_image'];
+        }else{
+            $image_url_seo = '';
+            $additional_image_seo = '';
         }
 
         Merchant::create([
@@ -122,8 +128,8 @@ class MerchantController extends Controller
             'category'          => 'required',
             'category'          => 'required',
             'type'              => 'required',
-            'image'             => 'image|mimes:jpeg,png,jpg,svg|max:8192',
-            'seo_image'         => 'image|mimes:jpeg,png,jpg,svg|max:8192',
+            'image'             => 'image|mimes:jpeg,png,jpg,svg|max:3072',
+            'seo_image'         => 'image|mimes:jpeg,png,jpg,svg|max:3072',
             'name'              => 'required',
             'slug'              => 'required',
             'tagline'           => 'required',
