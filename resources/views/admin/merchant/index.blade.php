@@ -60,7 +60,7 @@
                         @forelse ($merchants as $merchant)
                             <tr>
                                 <td>{{ $merchant->id }}</td>
-                                <td><img src="{{ URL::to($merchant->image) }}" width="32" height="32" alt="">
+                                <td><img src="{{ URL::to($merchant->compressImage('w_32,h_32')) }}" width="32" height="32" alt="">
                                 </td>
                                 <td>{{ $merchant->name ?? '-' }}</td>
                                 <td>{{ $merchant->slug ?? '-' }}</td>

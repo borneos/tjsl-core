@@ -56,8 +56,9 @@
                             <div class="form-group">
                                 <label for="image">Image</label><br>
                                 <input type="file" accept="image/*" id="image" name="image">
+                                <p class="mt-1" style="color:grey; font-size:11px">Image size maximum 3 MB</p>
                                 @error('image')
-                                    <br><span class="text-danger mt-2">{{ $message }}</span>
+                                    <br><span class="text-danger mt-1">{{ $message }}</span>
                                 @enderror
                             </div>
                             <div class="form-group text-center" style="margin-bottom:0%;">
@@ -67,8 +68,9 @@
                             <div class="form-group">
                                 <label for="seo_image">Seo Image</label><br>
                                 <input type="file" accept="image/*" id="seo_image" name="seo_image">
+                                <p class="mt-1" style="color:grey; font-size:11px">Image size maximum 3 MB</p>
                                 @error('seo_image')
-                                    <br><span class="text-danger mt-2">{{ $message }}</span>
+                                    <br><span class="text-danger mt-1">{{ $message }}</span>
                                 @enderror
                             </div>
                             <div class="form-group text-center" style="margin-bottom:0%;">
