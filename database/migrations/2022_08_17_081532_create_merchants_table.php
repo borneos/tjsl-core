@@ -19,7 +19,10 @@ class CreateMerchantsTable extends Migration
             $table->string('type');
             $table->longText('image');
             $table->longText('seo_image');
+            $table->longText('additional_image');
+            $table->longText('additional_image_seo');
             $table->string('name');
+            $table->string('slug');
             $table->string('tagline');
             $table->longText('short_description');
             $table->longText('description');
@@ -42,6 +45,7 @@ class CreateMerchantsTable extends Migration
             $table->string('link_tokopedia')->nullable();
             $table->string('link_shopee')->nullable();
             $table->string('link_bukalapak')->nullable();
+            $table->tinyInteger('status')->default('1');
             $table->timestamps();
         });
     }
