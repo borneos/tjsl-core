@@ -117,7 +117,7 @@
                         <div class="icon-wrapper-bg bg-primary"></div><i class="lnr-home text-primary"></i>
                       </div>
                       <div class="widget-numbers">{{ DB::table('merchants')->count() }}</div>
-                      <div class="widget-subheading">Total Merchant</div>
+                      <div class="widget-subheading">Total Merchants</div>
                     </div>
                   </div>
                   <div class="col-sm-6">
@@ -126,7 +126,7 @@
                         <div class="icon-wrapper-bg bg-primary"></div><i class="lnr-database text-primary"></i>
                       </div>
                       <div class="widget-numbers">{{ DB::table('products')->count() }}</div>
-                      <div class="widget-subheading">Total Product</div>
+                      <div class="widget-subheading">Total Products</div>
                     </div>
                   </div>
                   <div class="col-sm-6">
