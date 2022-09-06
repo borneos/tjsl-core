@@ -34,67 +34,6 @@
       </div>
     </div>
 
-    <div class="mx-4 mt-4 main-card mb-3 card">
-      <div class="no-gutters row">
-        <div class="col-md-3 col-xl-3">
-          <div class="widget-content">
-            <div class="widget-content-wrapper">
-              <div class="widget-content-right ml-0 mr-3">
-                <div class="widget-numbers text-primary">{{ DB::table('merchants')->count() }}</div>
-              </div>
-              <div class="widget-content-left">
-                <div class="widget-heading">Merchants</div>
-                <div class="widget-subheading">Total Merchants</div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="col-md-3 col-xl-3">
-          <div class="widget-content">
-            <div class="widget-content-wrapper">
-              <div class="widget-content-right ml-0 mr-3">
-                <div class="widget-numbers text-info">{{ DB::table('products')->count() }}</div>
-              </div>
-              <div class="widget-content-left">
-                <div class="widget-heading">Products</div>
-                <div class="widget-subheading">Total Products</div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="col-md-3 col-xl-3">
-          <div class="widget-content">
-            <div class="widget-content-wrapper">
-              <div class="widget-content-right ml-0 mr-3">
-                <div class="widget-numbers text-dark">{{ DB::table('categories')->count() }}</div>
-              </div>
-              <div class="widget-content-left">
-                <div class="widget-heading">Categories</div>
-                <div class="widget-subheading">Total Categories</div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="col-md-3 col-xl-3">
-          <div class="widget-content">
-            <div class="widget-content-wrapper">
-              <div class="widget-content-right ml-0 mr-3">
-                <div class="widget-numbers text-dark">{{ DB::table('blog')->count() }}</div>
-              </div>
-              <div class="widget-content-left">
-                <div class="widget-heading">Blogs</div>
-                <div class="widget-subheading">Total Blogs</div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-      </div>
-    </div>
-
     <div class="mx-4 mt-4">
       <div class="tabs-animation">
         <div class="row">
@@ -184,12 +123,31 @@
                   <div class="col-sm-6">
                     <div class="widget-chart widget-chart-hover">
                       <div class="icon-wrapper rounded-circle">
-                        <div class="icon-wrapper-bg bg-primary"></div><i class="lnr-database text-info"></i>
+                        <div class="icon-wrapper-bg bg-primary"></div><i class="lnr-database text-primary"></i>
                       </div>
                       <div class="widget-numbers">{{ DB::table('products')->count() }}</div>
                       <div class="widget-subheading">Total Product</div>
                     </div>
                   </div>
+                  <div class="col-sm-6">
+                    <div class="widget-chart widget-chart-hover">
+                      <div class="icon-wrapper rounded-circle">
+                        <div class="icon-wrapper-bg bg-primary"></div><i class="lnr-paperclip text-primary"></i>
+                      </div>
+                      <div class="widget-numbers">{{ DB::table('categories')->count() }}</div>
+                      <div class="widget-subheading">Total Categories</div>
+                    </div>
+                  </div>
+                  <div class="col-sm-6">
+                    <div class="widget-chart widget-chart-hover">
+                      <div class="icon-wrapper rounded-circle">
+                        <div class="icon-wrapper-bg bg-primary"></div><i class="lnr-book text-primary"></i>
+                      </div>
+                      <div class="widget-numbers">{{ DB::table('blog')->count() }}</div>
+                      <div class="widget-subheading">Total Blogs</div>
+                    </div>
+                  </div>
+                  
                 </div>
               </div>
             </div>
