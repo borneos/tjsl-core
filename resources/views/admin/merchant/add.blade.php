@@ -46,7 +46,7 @@
                                 @enderror
                             </div>
                             <div class="form-group">
-                                <label for="type">Type</label>
+                                <label for="type">Sector</label>
                                 <input type="text" id="type" name="type" value="{{ old('type') }}"
                                     class="form-control">
                                 @error('type')
@@ -54,7 +54,7 @@
                                 @enderror
                             </div>
                             <div class="form-group">
-                                <label for="image">Image</label><br>
+                                <label for="image">Logo Merchant</label><br>
                                 <input type="file" accept="image/*" id="image" name="image">
                                 <p class="mt-1" style="color:grey; font-size:11px">Image size maximum 3 MB</p>
                                 @error('image')
@@ -78,7 +78,7 @@
                                     alt="" />
                             </div>
                             <div class="form-group">
-                                <label for="name">Name</label>
+                                <label for="name">Merchant Name</label>
                                 <input type="text" id="name" name="name" value="{{ old('name') }}"
                                     class="form-control">
                                 @error('name')
@@ -86,7 +86,7 @@
                                 @enderror
                             </div>
                             <div class="form-group">
-                                <label for="slug">Slug</label>
+                                <label for="slug">Slug Merchant</label>
                                 <input type="text" id="slug" name="slug" value="{{ old('slug') }}"
                                     class="form-control" readonly>
                                 @error('slug')
@@ -196,7 +196,7 @@
                                 <textarea name="owner_address" id="owner_address" class="form-control">{{ old('owner_address') }}</textarea>
                             </div>
                             <div class="form-group">
-                                <label for="soc_fb">Facebook</label>
+                                <label for="soc_fb">Link Facebook</label>
                                 <input type="text" id="soc_fb" name="soc_fb" value="{{ old('soc_fb') }}"
                                     class="form-control">
                                 @error('soc_fb')
@@ -204,7 +204,7 @@
                                 @enderror
                             </div>
                             <div class="form-group">
-                                <label for="soc_ig">Instagram</label>
+                                <label for="soc_ig">Link Instagram</label>
                                 <input type="text" id="soc_ig" name="soc_ig" value="{{ old('soc_ig') }}"
                                     class="form-control">
                                 @error('soc_ig')
@@ -212,7 +212,7 @@
                                 @enderror
                             </div>
                             <div class="form-group">
-                                <label for="soc_twitter">Twitter</label>
+                                <label for="soc_twitter">Link Twitter</label>
                                 <input type="text" id="soc_twitter" name="soc_twitter"
                                     value="{{ old('soc_twitter') }}" class="form-control">
                                 @error('soc_twitter')

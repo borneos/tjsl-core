@@ -72,7 +72,6 @@
                   <th>@sortablelink('sku', 'SKU Product')</th>
                   <th>@sortablelink('merchant_name', 'Merchant Name')</th>
                   <th>@sortablelink('name', 'Product Name')</th>
-                  <th>@sortablelink('description','Description')</th>
                   <th>@sortablelink('tags','Tags')</th>
                   <th>@sortablelink('price','Price')</th>
                   <th>Status</th>
@@ -80,15 +79,14 @@
                </tr>
             </thead>
             <tbody>
-                @forelse ($products as $product)
+                @foreach($products as $product)
                     <tr>
                         <td>{{ $product->id }}</td>
                         <td><img src="{{ URL::to($product->compressImage('w_32,h_32')) }}" width="32" height="32" alt=""></td>
                         <td>{{ $product->sku ?? '-' }}</td>
                         <td>{{ $product->merchant_name ?? '-' }}</td>
                         <td>{{ $product->name ?? '-' }}</td>
-                        <td title="{{  $product->description  }}">{!! $product->description ? \Str::limit($product->description, 60, ' .') : '-' !!}</td>
-                        <td title="{{ $product->tags }}">{{ $product->tags ? \Str::limit($product->tags, 60, ' .') : '-' }}</td>
+                        <td>{{ $product->tags ? \Str::limit($product->tags, 60, ' .') : '-' }}</td>
                         <td>{{ number_format($product->price, 0, ',', '.') }}</td>
                         <td>
                            <label class="m-auto align-middle" for="statusCheckbox{{$product->id}}">
@@ -100,11 +98,7 @@
                            <button type="button" onclick="delete_product({{$product->id}})" class="btn btn-danger btn-sm" title="Delete ?"><i style="font-size: 14px" class="pe-7s-trash"></i></button>
                         </td>
                     </tr>
-                @empty
-                  <tr>
-                    <td colspan="6">No product to display.</td>
-                  </tr>
-                @endforelse
+                @endforeach
             </tbody>
          </table>
           <div class="row">
@@ -120,37 +114,37 @@
  </div>
 @endsection
 @section('js')
-   <script type="text/javascript">
-      function delete_product(id)
-      {
-         Swal.fire({
-            title: 'Are you sure?',
-            text: "You won't be able to revert this!",
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Yes, delete it!'
-            }).then((result) => {
-              if (result.isConfirmed) {
-                let _token = $('meta[name="csrf-token"]').attr('content');
-                $.ajax({
-                    type: "DELETE",
-                    url: "/product/"+id,
-                    data: {_token:_token,id:id},
-                    success:function(response){
-                      if(response.status == 200){
-                          Swal.fire(
-                            'Deleted!',
-                            'Your file has been deleted.',
-                            'success'
-                          )
-                          window.location = "{{ route('admin.product.index') }}";
-                      }
-                    }
-                });
+  <script type="text/javascript">
+    function delete_product(id)
+    {
+      Swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          let _token = $('meta[name="csrf-token"]').attr('content');
+          $.ajax({
+              type: "DELETE",
+              url: "/product/"+id,
+              data: {_token:_token,id:id},
+              success:function(response){
+                if(response.status == 200){
+                    Swal.fire(
+                      'Deleted!',
+                      'Your file has been deleted.',
+                      'success'
+                    )
+                    window.location = "{{ route('admin.product.index') }}";
+                }
               }
-            })
-      }
-   </script>
+          });
+        }
+      })
+    }
+  </script>
 @endsection
