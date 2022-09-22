@@ -14,7 +14,7 @@ class Merchant extends Model
         'name', 'slug', 'status'
     ];
     protected $fillable = [
-        'id_category', 'type', 'image', 'seo_image', 'additional_image', 'additional_image_seo', 'name', 'slug', 'tagline', 
+        'id_category', 'type', 'image','cover_image','seo_image', 'additional_image','additional_image_cover','additional_image_seo', 'name', 'slug', 'tagline', 
         'short_description', 'description', 'biography', 'telp', 'address', 'city', 'district', 'lat', 'long', 'owner_name', 
         'owner_telp', 'owner_email', 'owner_address', 'soc_fb', 'soc_ig', 'soc_twitter', 'website', 'link_borneos', 'link_tokopedia',
         'link_shopee', 'link_bukalapak', 'status','status_type'

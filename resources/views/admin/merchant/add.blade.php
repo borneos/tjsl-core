@@ -73,6 +73,18 @@
                                     alt="" />
                             </div>
                             <div class="form-group">
+                                <label for="cover_image">Cover Image</label><br>
+                                <input type="file" accept="image/*" id="cover_image" name="cover_image">
+                                <p class="mt-1" style="color:grey; font-size:11px">Image size maximum 3 MB</p>
+                                @error('cover_image')
+                                    <br><span class="text-danger mt-1">{{ $message }}</span>
+                                @enderror
+                            </div>
+                            <div class="form-group text-center" style="margin-bottom:0%;">
+                                <img style="width: 25%;border: 0px solid; border-radius: 10px;" id="viewer_cover"
+                                    alt="" />
+                            </div>
+                            <div class="form-group">
                                 <label for="seo_image">Seo Image</label><br>
                                 <input type="file" accept="image/*" id="seo_image" name="seo_image">
                                 <p class="mt-1" style="color:grey; font-size:11px">Image size maximum 3 MB</p>
@@ -308,30 +320,30 @@
     @endsection
     @section('js')
         <script>
-            function readURL(input) {
-                if (input.files && input.files[0]) {
-                    var reader = new FileReader();
+            function readURL(output) {
+                if (output.data.files && output.data.files[0]) {
+                    let reader = new FileReader();
                     reader.onload = function(e) {
-                        $('#viewer').attr('src', e.target.result);
+                        if(output.to == 'image'){
+                            $('#viewer').attr('src', e.target.result);
+                        }else if(output.to == 'seoImage'){
+                            $('#viewer_seo').attr('src', e.target.result);
+                        }else if(output.to == 'coverImage'){
+                            $('#viewer_cover').attr('src', e.target.result);
+                        }
                     }
-                    reader.readAsDataURL(input.files[0]);
+                    reader.readAsDataURL(output.data.files[0]);
                 }
             }
 
-            function readURL_seo(input) {
-                if (input.files && input.files[0]) {
-                    var reader = new FileReader();
-                    reader.onload = function(e) {
-                        $('#viewer_seo').attr('src', e.target.result);
-                    }
-                    reader.readAsDataURL(input.files[0]);
-                }
-            }
             $("#image").change(function() {
-                readURL(this);
+                readURL({data:this,to:'image'});
+            });
+            $('#cover_image').change(function(){
+                readURL({data:this,to:'coverImage'});
             });
             $("#seo_image").change(function() {
-                readURL_seo(this);
+                 readURL({data:this,to:'seoImage'});
             });
             $('#name').keyup(function(e) {
                 $('#slug').val(convertToSlug(e.target.value));
