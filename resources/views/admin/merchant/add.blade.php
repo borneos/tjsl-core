@@ -54,6 +54,13 @@
                                 @enderror
                             </div>
                             <div class="form-group">
+                                <label>Sector Active</label><br>
+                                <label class="m-auto align-middle" for="typeStatusCheckbox">
+                                    <input type="checkbox" data-toggle="toggle" data-size="small"
+                                        id="typeStatusCheckbox1" name="status_type">
+                                </label>
+                            </div>
+                            <div class="form-group">
                                 <label for="image">Logo Merchant</label><br>
                                 <input type="file" accept="image/*" id="image" name="image">
                                 <p class="mt-1" style="color:grey; font-size:11px">Image size maximum 3 MB</p>

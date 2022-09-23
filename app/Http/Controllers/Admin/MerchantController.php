@@ -80,6 +80,7 @@ class MerchantController extends Controller
         Merchant::create([
             'id_category'           => $request->category,
             'type'                  => $request->type,
+            'status_type'           => $request->status_type == 'on' ? 1 : 0,
             'image'                 => $image_url,
             'seo_image'             => $image_url_seo,
             'additional_image'      => $additional_image,
@@ -171,6 +172,7 @@ class MerchantController extends Controller
         $merchant->update([
             'id_category'           => $request->category,
             'type'                  => $request->type,
+            'status_type'           => $request->status_type == 'on' ? 1 : 0,
             'image'                 => $image_url ?? $merchant->image,
             'seo_image'             => $image_url_seo ?? $merchant->seo_image,
             'additional_image'      => $additional_image ?? $merchant->additional_image,
