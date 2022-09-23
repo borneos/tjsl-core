@@ -40,6 +40,7 @@ class MerchantController extends Controller
             'category'          => 'required',
             'type'              => 'required',
             'image'             => 'image|mimes:jpeg,png,jpg,svg|max:3072',
+            'cover_image'       => 'image|mimes:jpeg,png,jpg,svg|max:3072',
             'seo_image'         => 'image|mimes:jpeg,png,jpg,svg|max:3072',
             'name'              => 'required',
             'slug'              => 'required',
@@ -68,6 +69,15 @@ class MerchantController extends Controller
             $additional_image = '';
         }
 
+        if ($request->file('cover_image')) {
+            $image_cover = $this->UploadImageCloudinary(['image' => $request->file('cover_image'), 'folder' => 'tjsl-core/merchants/cover_image']);
+            $image_url_cover = $image_cover['url'];
+            $additional_image_cover = $image_cover['additional_image'];
+        }else{
+            $image_url_cover = '';
+            $additional_image_cover = '';
+        }
+
         if ($request->file('seo_image')) {
             $image_seo = $this->UploadImageCloudinary(['image' => $request->file('seo_image'), 'folder' => 'tjsl-core/merchants/seo_image']);
             $image_url_seo = $image_seo['url'];
@@ -80,9 +90,12 @@ class MerchantController extends Controller
         Merchant::create([
             'id_category'           => $request->category,
             'type'                  => $request->type,
+            'status_type'           => $request->status_type == 'on' ? 1 : 0,
             'image'                 => $image_url,
             'seo_image'             => $image_url_seo,
+            'cover_image'           => $image_url_cover,
             'additional_image'      => $additional_image,
+            'additional_image_cover'=> $additional_image_cover,
             'additional_image_seo'  => $additional_image_seo,
             'name'                  => $request->name,
             'slug'                  => $request->slug,
@@ -129,6 +142,7 @@ class MerchantController extends Controller
             'category'          => 'required',
             'type'              => 'required',
             'image'             => 'image|mimes:jpeg,png,jpg,svg|max:3072',
+            'cover_image'       => 'image|mimes:jpeg,png,jpg,svg|max:3072',
             'seo_image'         => 'image|mimes:jpeg,png,jpg,svg|max:3072',
             'name'              => 'required',
             'slug'              => 'required',
@@ -149,19 +163,32 @@ class MerchantController extends Controller
         ]);
 
         if ($request->file('image')) {
-            $image = $this->UpdateImageCloudinary([
+            $image = $this->UpdateImageMerchantCloudinary([
                 'image'      => $request->file('image'),
                 'folder'     => 'tjsl-core/merchants/image',
+                'storagePath'=> 'additionalImage',
                 'collection' => $merchant
             ]);
             $image_url = $image['url'];
             $additional_image = $image['additional_image'];
         }
 
+        if ($request->file('cover_image')) {
+            $cover_image = $this->UpdateImageMerchantCloudinary([
+                'image'      => $request->file('cover_image'),
+                'folder'     => 'tjsl-core/merchants/cover_image',
+                'storagePath'=> 'additionalImageCover',
+                'collection' => $merchant
+            ]);
+            $image_url_cover = $cover_image['url'];
+            $additional_image_cover = $cover_image['additional_image'];
+        }
+
         if ($request->file('seo_image')) {
-            $seo_image = $this->UpdateImageCloudinary([
+            $seo_image = $this->UpdateImageMerchantCloudinary([
                 'image'      => $request->file('seo_image'),
                 'folder'     => 'tjsl-core/merchants/seo_image',
+                'storagePath'=> 'additionalImageSeo',
                 'collection' => $merchant
             ]);
             $image_url_seo = $seo_image['url'];
@@ -171,9 +198,12 @@ class MerchantController extends Controller
         $merchant->update([
             'id_category'           => $request->category,
             'type'                  => $request->type,
+            'status_type'           => $request->status_type == 'on' ? 1 : 0,
             'image'                 => $image_url ?? $merchant->image,
+            'cover_image'           => $image_url_cover ?? $merchant->cover_image,
             'seo_image'             => $image_url_seo ?? $merchant->seo_image,
             'additional_image'      => $additional_image ?? $merchant->additional_image,
+            'additional_image_cover'=> $additional_image_cover ?? $merchant->additional_image_cover,
             'additional_image_seo'  => $additional_image_seo ?? $merchant->additional_image_seo,
             'name'                  => $request->name,
             'slug'                  => $request->slug,
@@ -212,6 +242,10 @@ class MerchantController extends Controller
         }
         if ($merchant->seo_image && $merchant->additional_image_seo) {
             $key = json_decode($merchant->additional_image_seo);
+            Cloudinary::destroy($key->public_id);
+        }
+        if ($merchant->cover_image && $merchant->additional_image_cover) {
+            $key = json_decode($merchant->additional_image_cover);
             Cloudinary::destroy($key->public_id);
         }
         $merchant->delete();

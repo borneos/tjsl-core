@@ -40,7 +40,7 @@
                                 @enderror
                             </div>
                             <div class="form-group">
-                                <label for="type">Type</label>
+                                <label for="type">Sector</label>
                                 <input type="text" id="type" name="type" class="form-control"
                                     value="{{ $merchant->type }}">
                                 @error('type')
@@ -48,7 +48,14 @@
                                 @enderror
                             </div>
                             <div class="form-group">
-                                <label for="image">Image</label><br>
+                                <label>Sector Active</label><br>
+                                <label class="m-auto align-middle" for="typeStatusCheckbox">
+                                    <input type="checkbox" data-toggle="toggle" data-size="small"
+                                        id="typeStatusCheckbox1" name="status_type" {{ $merchant->status_type ? 'checked':'' }}>
+                                </label>
+                            </div>
+                            <div class="form-group">
+                                <label for="image">Logo Merchant</label><br>
                                 <input type="file" accept="image/*" id="image" name="image">
                                 <p class="mt-1" style="color:grey; font-size:11px">Image size maximum 3 MB</p>
                                 @error('image')
@@ -58,6 +65,18 @@
                             <div class="form-group text-center" style="margin-bottom:0%;">
                                 <img style="width: 25%;border: 0px solid; border-radius: 10px;"
                                     src="{{ URL::to($merchant->image) }}" id="viewer" alt="" />
+                            </div>
+                            <div class="form-group">
+                                <label for="cover_image">Cover Image</label><br>
+                                <input type="file" accept="image/*" id="cover_image" name="cover_image">
+                                <p class="mt-1" style="color:grey; font-size:11px">Image size maximum 3 MB</p>
+                                @error('cover_image')
+                                    <br><span class="text-danger mt-1">{{ $message }}</span>
+                                @enderror
+                            </div>
+                            <div class="form-group text-center" style="margin-bottom:0%;">
+                                <img style="width: 25%;border: 0px solid; border-radius: 10px;" src="{{ URL::to($merchant->cover_image) }}" id="viewer_cover"
+                                    alt="" />
                             </div>
                             <div class="form-group">
                                 <label for="seo_image">Seo Image</label><br>
@@ -72,7 +91,7 @@
                                     src="{{ URL::to($merchant->seo_image) }}" id="viewer_seo" alt="" />
                             </div>
                             <div class="form-group">
-                                <label for="name">Name</label>
+                                <label for="name">Merchant Name</label>
                                 <input type="text" id="name" name="name" value="{{ $merchant->name }}"
                                     class="form-control">
                                 @error('name')
@@ -80,7 +99,7 @@
                                 @enderror
                             </div>
                             <div class="form-group">
-                                <label for="slug">Slug</label>
+                                <label for="slug">Slug Merchant</label>
                                 <input type="text" id="slug" name="slug" value="{{ $merchant->slug }}"
                                     class="form-control">
                                 @error('slug')
@@ -191,7 +210,7 @@
                                 <textarea name="owner_address" id="owner_address" class="form-control">{{ $merchant->owner_address }}</textarea>
                             </div>
                             <div class="form-group">
-                                <label for="soc_fb">Facebook</label>
+                                <label for="soc_fb">Link Facebook</label>
                                 <input type="text" id="soc_fb" name="soc_fb" value="{{ $merchant->soc_fb }}"
                                     class="form-control">
                                 @error('soc_fb')
@@ -199,7 +218,7 @@
                                 @enderror
                             </div>
                             <div class="form-group">
-                                <label for="soc_ig">Instagram</label>
+                                <label for="soc_ig">Link Instagram</label>
                                 <input type="text" id="soc_ig" name="soc_ig" value="{{ $merchant->soc_ig }}"
                                     class="form-control">
                                 @error('soc_ig')
@@ -207,7 +226,7 @@
                                 @enderror
                             </div>
                             <div class="form-group">
-                                <label for="soc_twitter">Twitter</label>
+                                <label for="soc_twitter">Link Twitter</label>
                                 <input type="text" id="soc_twitter" value="{{ $merchant->soc_twitter }}"
                                     name="soc_twitter" class="form-control">
                                 @error('soc_twitter')
@@ -296,30 +315,30 @@
     @endsection
     @section('js')
         <script>
-            function readURL(input) {
-                if (input.files && input.files[0]) {
-                    var reader = new FileReader();
+            function readURL(output) {
+                if (output.data.files && output.data.files[0]) {
+                    let reader = new FileReader();
                     reader.onload = function(e) {
-                        $('#viewer').attr('src', e.target.result);
+                        if(output.to == 'image'){
+                            $('#viewer').attr('src', e.target.result);
+                        }else if(output.to == 'seoImage'){
+                            $('#viewer_seo').attr('src', e.target.result);
+                        }else if(output.to == 'coverImage'){
+                            $('#viewer_cover').attr('src', e.target.result);
+                        }
                     }
-                    reader.readAsDataURL(input.files[0]);
+                    reader.readAsDataURL(output.data.files[0]);
                 }
             }
 
-            function readURL_seo(input) {
-                if (input.files && input.files[0]) {
-                    var reader = new FileReader();
-                    reader.onload = function(e) {
-                        $('#viewer_seo').attr('src', e.target.result);
-                    }
-                    reader.readAsDataURL(input.files[0]);
-                }
-            }
             $("#image").change(function() {
-                readURL(this);
+                readURL({data:this,to:'image'});
+            });
+            $('#cover_image').change(function(){
+                readURL({data:this,to:'coverImage'});
             });
             $("#seo_image").change(function() {
-                readURL_seo(this);
+                 readURL({data:this,to:'seoImage'});
             });
             $('#name').keyup(function(e) {
                 $('#slug').val(convertToSlug(e.target.value));
