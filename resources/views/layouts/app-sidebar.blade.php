@@ -9,7 +9,7 @@
         </ul>
         <ul class="vertical-nav-menu">
           <li>
-              <a class="banner {{ count(request()->segments()) == 1 && request()->segments()[0] == 'banner' ? 'mm-active' : '' }}" href="#"><i class="metismenu-icon pe-7s-photo-gallery"></i>Banner</a>
+              <a class="banner {{ count(request()->segments()) == 1 && request()->segments()[0] == 'banner' ? 'mm-active' : '' }}" href="{{ route('admin.banner.index') }}"><i class="metismenu-icon pe-7s-photo-gallery"></i>Banner</a>
           </li>
           <li>
               <a class="category {{ count(request()->segments()) == 1 && request()->segments()[0] == 'category' ? 'mm-active' : '' }}" href="{{ route('admin.category.index') }}"><i class="metismenu-icon pe-7s-server"></i>Category</a>
