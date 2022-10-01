@@ -17,6 +17,8 @@ Route::namespace('Admin')->middleware('auth')->group(function () {
     });
     Route::prefix('banner')->group(function(){
         Route::get('/','BannerController@index')->name('admin.banner.index');
+        Route::get('/add','BannerController@add')->name('admin.banner.add');
+        Route::post('/add','BannerController@store')->name('admin.banner.store');
     });
     Route::prefix('category')->group(function () {
         Route::get('/', 'CategoryController@index')->name('admin.category.index');
