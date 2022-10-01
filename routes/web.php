@@ -21,6 +21,7 @@ Route::namespace('Admin')->middleware('auth')->group(function () {
         Route::post('/add','BannerController@store')->name('admin.banner.store');
         Route::get('/edit/{id}','BannerController@edit')->name('admin.banner.edit');
         Route::put('/edit/{id}','BannerController@update')->name('admin.banner.update');
+        Route::delete('/{id}','BannerController@delete')->name('admin.banner.delete');
     });
     Route::prefix('category')->group(function () {
         Route::get('/', 'CategoryController@index')->name('admin.category.index');
