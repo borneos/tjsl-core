@@ -54,4 +54,37 @@ class BannerController extends Controller
         Alert::success('Success', 'Data Created Successfully');
         return redirect()->route('admin.banner.index');
     }
+    public function edit(int $id)
+    {
+        return view('admin.banner.edit',['banner' => Banner::findOrFail($id)]);
+    }
+    public function update(Request $request,int $id)
+    {
+        $request->validate([
+            'title' => 'required',
+            'url'   => 'nullable|sometimes',
+            'image' => 'image|mimes:jpeg,png,jpg,svg|max:8192'
+        ]);
+
+        $banner = Banner::findOrFail($id);
+
+        if ($request->file('image')) {
+            $image = $this->UpdateImageCloudinary([
+                'image'      => $request->file('image'),
+                'folder'     => 'tjsl-core/banners',
+                'collection' => $banner
+            ]);
+            $image_url = $image['url'];
+            $additional_image = $image['additional_image'];
+        }
+
+        $banner->update([
+            'title' => $request->title,
+            'url'   => $request->url ?? '',
+            'image' => $image_url ?? $banner->image,
+            'additional_image' => $additional_image ?? $banner->additional_image
+        ]);
+        Alert::success('Success', 'Data Updated Successfully');
+        return redirect()->route('admin.banner.index');
+    }
 }
