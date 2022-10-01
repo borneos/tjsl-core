@@ -11,7 +11,7 @@
             <div>Master Banner <span class="badge badge-pill badge-primary">{{ number_format($banners->total(), 0, "", ".") }}</span><div class="page-title-subheading">List Master Banner</div></div>
          </div>
          <div class="page-title-actions">
-             <a href="#" class="btn-shadow btn btn-info btn-lg">Add Banner</a>
+             <a href="{{ route('admin.banner.add') }}" class="btn-shadow btn btn-info btn-lg">Add Banner</a>
          </div>
       </div>
    </div>
@@ -53,7 +53,7 @@
                 @forelse ($banners as $banner)
                     <tr>
                         <td>{{ $banner->id }}</td>
-                        <td><img src="{{ URL::to($banner->image) }}" width="32" height="32" alt=""></td>
+                        <td><img src="{{ URL::to($banner->compressImage('w_32,h_32')) }}" width="32" height="32" alt=""></td>
                         <td>{{ $banner->title ?? '-' }}</td>
                          <td title="{{ $banner->url }}">{{ $banner->url ? \Str::limit($banner->url, 100, ' .') : '-' }}</td>
                         <td>
