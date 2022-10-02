@@ -13,7 +13,8 @@ class Product extends Model
     protected $table = 'products';
 
     protected $fillable = [
-        'sku', 'merchant_id', 'merchant_name', 'tags', 'name', 'slug', 'description', 'price', 'image', 'additional_image', 'status'
+        'sku', 'merchant_id', 'merchant_name', 'tags', 'name', 'slug', 'description', 'price', 'image',
+        'additional_image','favorite','status'
     ];
 
     public $sortable = [
