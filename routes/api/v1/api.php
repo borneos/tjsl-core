@@ -3,6 +3,9 @@
 use Illuminate\Support\Facades\Route;
 
 Route::group(['namespace' => 'Api\V1'], function () {
+    Route::prefix('banners')->group(function(){
+        Route::get('/','BannerController@get_banners');
+    });
     Route::prefix('categories')->group(function () {
         Route::get('/', 'CategoryController@get_categories');
     });
