@@ -17,7 +17,7 @@ class Merchant extends Model
         'id_category', 'type', 'image','cover_image','seo_image', 'additional_image','additional_image_cover','additional_image_seo', 'name', 'slug', 'tagline', 
         'short_description', 'description', 'biography', 'telp', 'address', 'city', 'district', 'lat', 'long', 'owner_name', 
         'owner_telp', 'owner_email', 'owner_address', 'soc_fb', 'soc_ig', 'soc_twitter', 'website', 'link_borneos', 'link_tokopedia',
-        'link_shopee', 'link_bukalapak', 'status','status_type'
+        'link_shopee', 'link_bukalapak','favorite','status','status_type'
     ];
     public function category()
     {

@@ -53,13 +53,23 @@
                                     <span class="text-danger mt-2">{{ $message }}</span>
                                 @enderror
                             </div>
-                            <div class="form-group">
-                                <label>Sector Active</label><br>
-                                <label class="m-auto align-middle" for="typeStatusCheckbox">
-                                    <input type="checkbox" data-toggle="toggle" data-size="small"
-                                        id="typeStatusCheckbox1" name="status_type">
-                                </label>
+                            <div class="row">
+                                <div class="form-group ml-3">
+                                    <label>Sector Active</label><br>
+                                    <label class="m-auto align-middle" for="typeStatusCheckbox">
+                                        <input type="checkbox" data-toggle="toggle" data-size="small"
+                                            id="typeStatusCheckbox1" name="status_type">
+                                    </label>
+                                </div>
+                                <div class="form-group ml-3">
+                                    <label>Favorite</label><br>
+                                    <label class="m-auto align-middle" for="favoriteCheckbox">
+                                        <input type="checkbox" data-toggle="toggle" data-size="small"
+                                            id="favoriteCheckbox" name="favorite">
+                                    </label>
+                                </div>
                             </div>
+                            
                             <div class="form-group">
                                 <label for="image">Logo Merchant</label><br>
                                 <input type="file" accept="image/*" id="image" name="image">

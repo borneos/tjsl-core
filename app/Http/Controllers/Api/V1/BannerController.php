@@ -4,12 +4,14 @@ namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
 use App\Models\Banner;
+use Illuminate\Http\Request;
 
 class BannerController extends Controller
 {
-    public function get_banners()
+    public function get_banners(Request $request)
     {
-        $query = Banner::all();
+        $sort = $request->sort ?? 'desc';
+        $query = Banner::orderBy('id',$sort)->get();
         if($query->count() == 0){
             $results = (object)[];
         }else{

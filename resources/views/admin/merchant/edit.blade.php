@@ -47,12 +47,21 @@
                                     <span class="text-danger mt-2">{{ $message }}</span>
                                 @enderror
                             </div>
-                            <div class="form-group">
-                                <label>Sector Active</label><br>
-                                <label class="m-auto align-middle" for="typeStatusCheckbox">
-                                    <input type="checkbox" data-toggle="toggle" data-size="small"
-                                        id="typeStatusCheckbox1" name="status_type" {{ $merchant->status_type ? 'checked':'' }}>
-                                </label>
+                            <div class="row">
+                                <div class="form-group ml-3">
+                                    <label>Sector Active</label><br>
+                                    <label class="m-auto align-middle" for="typeStatusCheckbox">
+                                        <input type="checkbox" data-toggle="toggle" data-size="small"
+                                            id="typeStatusCheckbox1" name="status_type" {{ $merchant->status_type == 1 ? 'checked':'' }}>
+                                    </label>
+                                </div>
+                                <div class="form-group ml-3">
+                                    <label>Favorite</label><br>
+                                    <label class="m-auto align-middle" for="favoriteCheckbox">
+                                        <input type="checkbox" data-toggle="toggle" data-size="small"
+                                            id="favoriteCheckbox" name="favorite" {{ $merchant->favorite == 1 ? 'checked':'' }}>
+                                    </label>
+                                </div>
                             </div>
                             <div class="form-group">
                                 <label for="image">Logo Merchant</label><br>
