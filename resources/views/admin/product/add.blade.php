@@ -87,14 +87,18 @@
                     </div>
                   </div>
                   <div class="row">
-                    <div class="col-md-12">
-                        <div class="form-group">
-                            <label>Status</label><br>
-                            <label class="m-auto align-middle" for="statusCheckbox">
-                              <input type="checkbox" data-toggle="toggle" data-size="small" name="status" id="statusCheckbox">
-                           </label>
-                        </div>
-                    </div>
+                     <div class="form-group ml-3">
+                         <label>Status</label><br>
+                         <label class="m-auto align-middle" for="statusCheckbox">
+                           <input type="checkbox" data-toggle="toggle" data-size="small" name="status" id="statusCheckbox">
+                        </label>
+                     </div>
+                     <div class="form-group ml-3">
+                        <label>Favorite</label><br>
+                        <label class="m-auto align-middle" for="favoriteCheckbox">
+                          <input type="checkbox" data-toggle="toggle" data-size="small" name="favorite" id="favoriteCheckbox">
+                       </label>
+                     </div>
                   </div>
                   <div class="row">
                      <div class="col-md-12">

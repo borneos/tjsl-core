@@ -47,7 +47,8 @@ class ProductController extends Controller
         $request->validate([
             'merchant' => 'required',
             'name'     => 'required',
-            'price'    => 'required'
+            'price'    => 'required',
+            'image'    => 'image|mimes:jpeg,png,jpg,svg|max:8192'
         ]);
 
         if ($request->image) {
@@ -72,6 +73,7 @@ class ProductController extends Controller
             'price' => $request->price,
             'image' => $result_image,
             'additional_image' => $additional_image,
+            'favorite' => $request->favorite == 'on' ? 1 : 0,
             'status' => $request->status == 'on' ? 1 : 0
         ]);
         Alert::success('Success', 'Data Created Successfully');
@@ -92,7 +94,8 @@ class ProductController extends Controller
         $request->validate([
             'merchant' => 'required',
             'name'     => 'required',
-            'price'    => 'required'
+            'price'    => 'required',
+            'image'    => 'image|mimes:jpeg,png,jpg,svg|max:8192'
         ]);
 
         if ($request->image) {
@@ -121,6 +124,7 @@ class ProductController extends Controller
             'price' => $request->price,
             'image' => $result_image,
             'additional_image' => $additional_image,
+            'favorite' => $request->favorite == 'on' ? 1 : 0,
             'status' => $request->status == 'on' ? 1 : 0
         ]);
         Alert::success('Success', 'Data Updated Successfully');
