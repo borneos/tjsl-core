@@ -42,7 +42,8 @@ trait TraitsMerchant
                 'linkBorneos' => $result->link_borneos,
                 'linkTokopedia' => $result->link_tokopedia,
                 'linkShopee' => $result->link_shopee,
-                'linkBukalapak' => $result->link_bukalapak
+                'linkBukalapak' => $result->link_bukalapak,
+                'favorite' => $result->favorite
             ];
         }
         return $results;
@@ -52,24 +53,51 @@ trait TraitsMerchant
     {
         $request_q = $data['request_q']; //merchant name
         $slug_category = $data['slug_category']; //slug category
+        $isFavorite = $data['isFavorite']; //favorite
 
         if ($request_q && $slug_category) {
-            return Merchant::whereHas('category', function ($q) use ($slug_category) {
-                return $q->where('slug', '=', $slug_category);
-            })
-                ->where('name', '=', $request_q)
-                ->orderBy('id', $data['sort'])
-                ->paginate($data['perPage']);
+            if($isFavorite){
+                return Merchant::whereHas('category', function ($q) use ($slug_category) {
+                    return $q->where('slug', '=', $slug_category);
+                })
+                    ->where([['name', '=', $request_q],['favorite','=',$isFavorite]])
+                    ->orderBy('id', $data['sort'])
+                    ->paginate($data['perPage']);
+            }else{
+                return Merchant::whereHas('category', function ($q) use ($slug_category) {
+                    return $q->where('slug', '=', $slug_category);
+                })
+                    ->where('name', '=', $request_q)
+                    ->orderBy('id', $data['sort'])
+                    ->paginate($data['perPage']);
+            }
         } elseif ($request_q) {
-            return Merchant::where('name', '=', $request_q)->orderBy('id', $data['sort'])->paginate($data['perPage']);
+            if($isFavorite){
+                return Merchant::where([['name', '=', $request_q],['favorite','=',$isFavorite]])->orderBy('id', $data['sort'])->paginate($data['perPage']);
+            }else{
+                return Merchant::where('name', '=', $request_q)->orderBy('id', $data['sort'])->paginate($data['perPage']);
+            }
         } elseif ($slug_category) {
-            return Merchant::whereHas('category', function ($q) use ($slug_category) {
-                return $q->where('slug', '=', $slug_category);
-            })
-                ->orderBy('id', $data['sort'])
-                ->paginate($data['perPage']);
+            if($isFavorite){
+                return Merchant::whereHas('category', function ($q) use ($slug_category) {
+                        return $q->where('slug', '=', $slug_category);
+                    })
+                    ->where([['favorite','=',$isFavorite]])
+                    ->orderBy('id', $data['sort'])
+                    ->paginate($data['perPage']);
+            }else{
+                return Merchant::whereHas('category', function ($q) use ($slug_category) {
+                        return $q->where('slug', '=', $slug_category);
+                    })
+                    ->orderBy('id', $data['sort'])
+                    ->paginate($data['perPage']);
+            }
         } else {
-            return Merchant::orderBy('id', $data['sort'])->paginate($data['perPage']);
+            if($isFavorite){
+                return Merchant::where([['favorite','=',$isFavorite]])->orderBy('id', $data['sort'])->paginate($data['perPage']);    
+            }else{
+                return Merchant::orderBy('id', $data['sort'])->paginate($data['perPage']);
+            }
         }
     }
 }
