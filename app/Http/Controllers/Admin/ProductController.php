@@ -48,7 +48,7 @@ class ProductController extends Controller
             'merchant' => 'required',
             'name'     => 'required',
             'price'    => 'required',
-            'image'    => 'image|mimes:jpeg,png,jpg,svg|max:8192'
+            'image'    => 'sometimes|array'
         ]);
 
         if ($request->image) {
@@ -95,7 +95,7 @@ class ProductController extends Controller
             'merchant' => 'required',
             'name'     => 'required',
             'price'    => 'required',
-            'image'    => 'image|mimes:jpeg,png,jpg,svg|max:8192'
+            'image'    => 'sometimes|array',
         ]);
 
         if ($request->image) {
