@@ -53,6 +53,7 @@
                             <th>@sortablelink('slug', 'Merchant Slug')</th>
                             <th>@sortablelink('description', 'Description')</th>
                             <th>@sortablelink('status', 'Status')</th>
+                            <th>Favorite</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -72,6 +73,14 @@
                                             onChange="location.href='{{ route('admin.merchant.status', [$merchant['id'], $merchant->status ? 0 : 1]) }}'"
                                             id="statusCheckbox{{ $merchant->id }}"
                                             {{ $merchant->status ? 'checked' : '' }}>
+                                    </label>
+                                </td>
+                                <td>
+                                    <label class="m-auto align-middle" for="favoriteCheckbox{{ $merchant->id }}">
+                                        <input type="checkbox" data-toggle="toggle" data-size="small"
+                                            onChange="location.href='{{ route('admin.merchant.favorite', [$merchant['id'], $merchant->favorite ? 0 : 1]) }}'"
+                                            id="favoriteCheckbox{{ $merchant->id }}"
+                                            {{ $merchant->favorite ? 'checked' : '' }}>
                                     </label>
                                 </td>
                                 <td>

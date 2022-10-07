@@ -261,4 +261,10 @@ class MerchantController extends Controller
         Alert::toast('Status Updated', 'success');
         return redirect('/merchant');
     }
+    public function merchant_favorite(Merchant $merchant, Request $request)
+    {
+        $merchant->update(['favorite' => $request->favorite]);
+        Alert::toast('Favorite Updated', 'success');
+        return redirect('/merchant');
+    }
 }
