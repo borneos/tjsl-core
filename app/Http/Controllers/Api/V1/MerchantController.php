@@ -3,21 +3,22 @@
 namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
-use App\Http\Traits\{TraitsMerchant, FormatMeta};
+use App\Http\Traits\{TraitsMerchant,TraitsProduct, FormatMeta};
 use App\Models\Merchant;
 use Illuminate\Http\Request;
 
 class MerchantController extends Controller
 {
-    use TraitsMerchant, FormatMeta;
+    use TraitsMerchant,TraitsProduct, FormatMeta;
 
     public function get_merchants(Request $request)
     {
         $perPage = $request->perPage ?? 10;
         $request_q = $request->q ?? null; // merchant name
         $slug_category = $request->category ?? null; // slug category
+        $isFavorite = $request->isFavorite ?? null; //favorite
         $sort = $request->sort ?? 'desc';
-        $merchant = $this->QueryMerchantlist(compact('perPage', 'request_q', 'slug_category', 'sort'));
+        $merchant = $this->QueryMerchantlist(compact('perPage', 'request_q', 'slug_category','isFavorite', 'sort'));
 
         if ($merchant->count() == 0) {
             return response()->json(['status' => 'error', 'meta' => null, 'data' => null]);
@@ -27,7 +28,16 @@ class MerchantController extends Controller
                 'perPage' => $perPage,
                 'total'   => $merchant->total()
             ]);
-            return response()->json(['status' => 'success', 'meta' => $meta, 'data' => $this->resultMerchantList($merchant)]);
+            if($isFavorite){
+                 return response()->json([
+                    'status'   => 'success',
+                    'meta'     => $meta,
+                    'data'     => $this->resultMerchantList($merchant),
+                    'products' => $this->productListByFavorite(compact('isFavorite'))
+                ]);
+            }else{     
+                return response()->json(['status' => 'success', 'meta' => $meta, 'data' => $this->resultMerchantList($merchant)]);
+            }
         }
     }
     public function get_merchant_detail(Request $request)

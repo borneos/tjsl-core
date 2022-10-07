@@ -39,6 +39,7 @@ Route::namespace('Admin')->middleware('auth')->group(function () {
         Route::put('/edit/{merchant:slug}', 'MerchantController@update')->name('admin.merchant.update');
         Route::delete('/{merchant:id}', 'MerchantController@delete')->name('admin.merchant.delete');
         Route::get('/status/{merchant:id}/{status}', 'MerchantController@status')->name('admin.merchant.status');
+        Route::get('/favorite/{merchant:id}/{favorite}', 'MerchantController@merchant_favorite')->name('admin.merchant.favorite');
     });
     Route::prefix('blog-category')->group(function () {
         Route::get('/', 'BlogCategoryController@index')->name('admin.blog-category.index');
@@ -60,6 +61,7 @@ Route::namespace('Admin')->middleware('auth')->group(function () {
     Route::prefix('product')->group(function () {
         Route::get('/', 'ProductController@index')->name('admin.product.index');
         Route::get('/status/{id}/{status}', 'ProductController@product_status')->name('admin.product.status');
+        Route::get('/favorite/{id}/{favorite}', 'ProductController@product_favorite')->name('admin.product.favorite');
         Route::get('/add', 'ProductController@add')->name('admin.product.add');
         Route::post('/add', 'ProductController@store')->name('admin.product.store');
         Route::get('/edit/{id}', 'ProductController@edit')->name('admin.product.edit');
