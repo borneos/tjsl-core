@@ -60,6 +60,7 @@ Route::namespace('Admin')->middleware('auth')->group(function () {
     Route::prefix('product')->group(function () {
         Route::get('/', 'ProductController@index')->name('admin.product.index');
         Route::get('/status/{id}/{status}', 'ProductController@product_status')->name('admin.product.status');
+        Route::get('/favorite/{id}/{favorite}', 'ProductController@product_favorite')->name('admin.product.favorite');
         Route::get('/add', 'ProductController@add')->name('admin.product.add');
         Route::post('/add', 'ProductController@store')->name('admin.product.store');
         Route::get('/edit/{id}', 'ProductController@edit')->name('admin.product.edit');
