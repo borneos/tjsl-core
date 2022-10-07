@@ -134,4 +134,48 @@ trait TraitsProduct
         }
         return $results;
     }
+    public function productListByFavorite($data)
+    {
+        $products = Product::where([['favorite','=',$data['isFavorite']],['status','=',1]])->get();
+        if($products->count() == 0){
+            return null;
+        }else{
+            foreach($products as $product){
+                $results[] = [
+                    'id' => $product->id,
+                    'sku' => $product->sku,
+                    'merchant' => [
+                        'id' => $product->merchant_id,
+                        'type' => $product->merchant_id && $product->merchant->type ? $product->merchant->type : '',
+                        'name' => $product->merchant_id && $product->merchant->name ? $product->merchant->name : '',
+                        'slug' => $product->merchant_id && $product->merchant->slug ? $product->merchant->slug : '',
+                        'image' => $product->merchant_id && $product->merchant->image ? $product->merchant->image : null,
+                        'additionalImage' => $product->merchant_id && $product->merchant->additional_image ? json_decode($product->merchant->additional_image) : null,
+                        'coverImage' => $product->merchant_id && $product->merchant->cover_image ? $product->merchant->cover_image : null,
+                        'additionalImageCover' => $product->merchant_id && $product->merchant->additional_image_cover ? json_decode($product->merchant->additional_image_cover) : null,
+                        'seoImage' => $product->merchant_id && $product->merchant->seo_image ? $product->merchant->seo_image : null,
+                        'additionalImageSeo' => $product->merchant_id && $product->merchant->additional_image_seo ? json_decode($product->merchant->additional_image_seo) : null,
+                        'category' => [
+                            'id' => $product->merchant_id && $product->merchant->category->id ? $product->merchant->category->id: '',
+                            'name' => $product->merchant_id && $product->merchant->category->name ? $product->merchant->category->name: '',
+                            'slug' => $product->merchant_id && $product->merchant->category->slug ? $product->merchant->category->slug: '',
+                            'description' => $product->merchant_id && $product->merchant->category->description ? $product->merchant->category->description: '',
+                            'image' => $product->merchant_id && $product->merchant->category->image ? $product->merchant->category->image : null,
+                            'additionalImage' => $product->merchant_id && $product->merchant->category->additional_image ? json_decode($product->merchant->category->additional_image) : null
+                        ],
+                    ],
+                    'tags' => $product->tags ? explode(', ', $product->tags) : null,
+                    'name' => $product->name,
+                    'slug' => $product->slug ? $product->slug : '',
+                    'description' => $product->description ? $product->description :'',
+                    'price' => $product->price,
+                    'image' => $product->image ? $product->image : null,
+                    'additionalImage' => $product->additional_image ? json_decode($product->additional_image): null,
+                    'favorite' => $product->favorite,
+                    'status' => $product->status
+                ];
+            }
+            return $results;
+        }
+    }
 }
