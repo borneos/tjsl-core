@@ -75,6 +75,7 @@
                   <th>@sortablelink('tags','Tags')</th>
                   <th>@sortablelink('price','Price')</th>
                   <th>Status</th>
+                  <th>Favorite</th>
                   <th style="min-width: 100px">Action</th>
                </tr>
             </thead>
@@ -91,6 +92,11 @@
                         <td>
                            <label class="m-auto align-middle" for="statusCheckbox{{$product->id}}">
                               <input type="checkbox" data-toggle="toggle" data-size="small" onChange="location.href='{{route('admin.product.status',[$product['id'],$product->status?0:1])}}'" id="statusCheckbox{{$product->id}}" {{$product->status?'checked':''}}>
+                           </label>
+                        </td>
+                        <td>
+                           <label class="m-auto align-middle" for="favoriteCheckbox{{$product->id}}">
+                              <input type="checkbox" data-toggle="toggle" data-size="small" onChange="location.href='{{route('admin.product.favorite',[$product['id'],$product->favorite?0:1])}}'" id="favoriteCheckbox{{$product->id}}" {{$product->favorite?'checked':''}}>
                            </label>
                         </td>
                         <td>
