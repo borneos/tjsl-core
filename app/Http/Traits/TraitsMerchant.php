@@ -108,7 +108,7 @@ trait TraitsMerchant
 
     public function RestProductFavoriteFromMerchant($id)
     {
-        $products = Product::where([['favorite','=',1],['status','=',1]])->get();
+        $products = Product::where([['merchant_id', '=', $id],['favorite', '=', 1],['status', '=', 1]])->get();
         $results = count($products) == 0 ? null : $products;
         if ($results == null) {
             return null;
