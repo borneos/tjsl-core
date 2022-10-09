@@ -48,7 +48,8 @@ trait TraitsMerchant
                 'linkTokopedia' => $result->link_tokopedia,
                 'linkShopee' => $result->link_shopee,
                 'linkBukalapak' => $result->link_bukalapak,
-                'favorite' => $result->favorite
+                'favorite' => $result->favorite,
+                'products' => $resultProduct
             ];
         }
         return $results;
@@ -99,7 +100,7 @@ trait TraitsMerchant
             }
         } else {
             if($isFavorite){
-                return Merchant::where([['favorite','=',$isFavorite]])->orderBy('id', $data['sort'])->paginate($data['perPage']);    
+                return Merchant::where([['favorite','=',$isFavorite]])->orderBy('id', $data['sort'])->paginate($data['perPage']);
             }else{
                 return Merchant::orderBy('id', $data['sort'])->paginate($data['perPage']);
             }
