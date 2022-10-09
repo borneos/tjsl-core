@@ -52,7 +52,6 @@ trait TraitsMerchant
                 'products' => $resultProduct
             ];
         }
-        return $results;
     }
 
     public function QueryMerchantlist($data)
