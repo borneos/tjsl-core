@@ -29,9 +29,9 @@ class MerchantController extends Controller
                 'total'   => $merchant->total()
             ]);
             if($isFavorite){
-                return response()->json(['status' => 'success','meta'=> $meta,'data' => $this->merchantListWithProductFavorite(compact('merchant','isFavorite'))]);
+                return response()->json(['status' => 'success','meta'=> $meta,'data' => $this->merchantListWithProductFavorite(compact('merchant', 'isFavorite'))]);
             }else{
-                return response()->json(['status' => 'success', 'meta' => $meta, 'data' => $this->merchantListWithProductFavorite(compact('merchant'))]);
+                return response()->json(['status' => 'success', 'meta' => $meta, 'data' => $this->merchantListWithProductFavorite(compact('merchant', 'isFavorite'))]);
             }
         }
     }
