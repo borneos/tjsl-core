@@ -9,7 +9,7 @@ trait TraitsMerchant
 {
     public function resultMerchantList($data)
     {
-        $products = Product::where('status','=',1)->get();
+        $products = Product::where([['status','=',1]])->get();
         if($products->count() == 0){
             return null;
         }else{
@@ -48,50 +48,50 @@ trait TraitsMerchant
                     'status' => $product->status
                 ];
             }
-            foreach ($data['merchant'] as $result) {
-                $resultMerchant[] = [
-                    'additionalImage' => $result->additional_image ? json_decode($result->additional_image) : null,
-                    'additionalImageCover' => $result->additional_image_cover ? json_decode($result->additional_image_cover) : null,
-                    'additionalImageSeo' => $result->additional_image_seo ? json_decode($result->additional_image_seo) : null,
-                    'address' => $result->address,
-                    'biography' => $result->biography,
+            foreach ($data as $result) {
+                $results[] = [
+                    'id' => $result->id,
                     'category' => [
                         'id' => $result->id_category ? $result->id_category : null,
                         'name' => $result->id_category && $result->category->name ? $result->category->name : null,
                         'slug' => $result->id_category && $result->category->slug ? $result->category->slug : null
                     ],
-                    'city' => $result->city,
-                    'coverImage' => $result->cover_image ? $result->cover_image : null,
-                    'description' => $result->description,
-                    'district' => $result->district,
-                    'favorite' => $result->favorite,
-                    'id' => $result->id,
+                    'type' => $result->type,
                     'image' => $result->image ? $result->image : null,
-                    'latitude' => $result->lat,
-                    'linkBorneos' => $result->link_borneos ? $result->link_borneos : '-',
-                    'linkBukalapak' => $result->link_bukalapak ? $result->link_bukalapak : '-',
-                    'linkShopee' => $result->link_shopee ? $result->link_shopee : '-',
-                    'linkTokopedia' => $result->link_tokopedia ? $result->link_tokopedia : '-',
-                    'longitude' => $result->long,
+                    'additionalImage' => $result->additional_image ? json_decode($result->additional_image) : null,
+                    'seoImage' => $result->seo_image ? $result->seo_image : null,
+                    'additionalImageSeo' => $result->additional_image_seo ? json_decode($result->additional_image_seo) : null,
+                    'coverImage' => $result->cover_image ? $result->cover_image : null,
+                    'additionalImageCover' => $result->additional_image_cover ? json_decode($result->additional_image_cover) : null,
                     'name' => $result->name,
-                    'ownerAddress' => $result->owner_address,
-                    'ownerEmail' => $result->owner_email,
+                    'slug' => $result->slug,
+                    'tagline' => $result->tagline,
+                    'shortDescription' => $result->short_description,
+                    'description' => $result->description,
+                    'biography' => $result->biography,
+                    'telp' => $result->telp,
+                    'address' => $result->address,
+                    'city' => $result->city,
+                    'district' => $result->district,
+                    'latitude' => $result->lat,
+                    'longitude' => $result->long,
                     'ownerName' => $result->owner_name,
                     'ownerTelp' => $result->owner_telp,
-                    'seoImage' => $result->seo_image ? $result->seo_image : null,
-                    'shortDescription' => $result->short_description,
-                    'slug' => $result->slug,
-                    'socFb' => $result->soc_fb ? $result->soc_fb : '-',
-                    'socIg' => $result->soc_ig ? $result->soc_ig :'-',
-                    'socTwitter' => $result->soc_twitter ? $result->soc_twitter : '-',
-                    'tagline' => $result->tagline,
-                    'telp' => $result->telp,
-                    'type' => $result->type,
-                    'website' => $result->website ? $result->website : '-',
+                    'ownerEmail' => $result->owner_email,
+                    'ownerAddress' => $result->owner_address,
+                    'socFb' => $result->soc_fb,
+                    'socIg' => $result->soc_ig,
+                    'socTwitter' => $result->soc_twitter,
+                    'website' => $result->website,
+                    'linkBorneos' => $result->link_borneos,
+                    'linkTokopedia' => $result->link_tokopedia,
+                    'linkShopee' => $result->link_shopee,
+                    'linkBukalapak' => $result->link_bukalapak,
+                    'favorite' => $result->favorite,
                     'products' => $resultProduct
                 ];
             }
-            return $resultMerchant;
+            return $results;
         }
     }
 
