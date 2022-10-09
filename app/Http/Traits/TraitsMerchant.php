@@ -9,7 +9,7 @@ trait TraitsMerchant
 {
     public function resultMerchantList($data)
     {
-        $products = Product::where([['favorite','=',$data['isFavorite']],['status','=',1]])->get();
+        $products = Product::where([['status','=',1]])->get();
         if($products->count() == 0){
             return null;
         }else{
