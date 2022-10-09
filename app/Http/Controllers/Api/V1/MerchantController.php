@@ -30,8 +30,8 @@ class MerchantController extends Controller
             ]);
             if($isFavorite){
                 return response()->json(['status' => 'success','meta'=> $meta,'data' => $this->merchantListWithProductFavorite(compact('merchant','isFavorite'))]);
-            }else{     
-                return response()->json(['status' => 'success', 'meta' => $meta, 'data' => $this->resultMerchantList($merchant)]);
+            }else{
+                return response()->json(['status' => 'success', 'meta' => $meta, 'data' => $this->merchantListWithProductFavorite(compact('merchant','isFavorite'))]);
             }
         }
     }
