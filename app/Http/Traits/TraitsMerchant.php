@@ -109,11 +109,11 @@ trait TraitsMerchant
     public function RestProductFavoriteFromMerchant($id)
     {
         $products = Product::where([['favorite','=',1],['status','=',1]])->get();
-        $productsTemp = count($products) == 0 ? null : $products;
+        $results = count($products) == 0 ? null : $products;
         if ($results == null) {
             return null;
         } else {
-            foreach ($productsTemp as $product) {
+            foreach ($results as $product) {
                 $data[] = [
                     'id' => $product->id,
                     'sku' => $product->sku,
