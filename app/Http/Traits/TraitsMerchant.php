@@ -55,6 +55,7 @@ trait TraitsMerchant
 
     public function QueryMerchantlist($data)
     {
+        dd($data);
         $request_q = $data['request_q']; //merchant name
         $slug_category = $data['slug_category']; //slug category
         $isFavorite = $data['isFavorite']; //favorite
