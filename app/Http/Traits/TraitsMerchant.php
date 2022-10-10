@@ -48,8 +48,7 @@ trait TraitsMerchant
                 'linkTokopedia' => $result->link_tokopedia,
                 'linkShopee' => $result->link_shopee,
                 'linkBukalapak' => $result->link_bukalapak,
-                'favorite' => $result->favorite,
-                'products' => $resultProduct
+                'favorite' => $result->favorite
             ];
         }
     }
@@ -154,7 +153,11 @@ trait TraitsMerchant
 
     public function merchantListWithProductFavorite($data)
     {
-        $products = Product::where([['favorite','=',$data['isFavorite']],['status','=',1]])->get();
+        if($data['isFavorite'] == 'all'){
+            $products = Product::where([['status','=',1]])->get();
+        }else{
+            $products = Product::where([['favorite','=',$data['isFavorite']],['status','=',1]])->get();
+        }
         if($products->count() == 0){
             return null;
         }else{
@@ -233,8 +236,8 @@ trait TraitsMerchant
                     'telp' => $result->telp,
                     'type' => $result->type,
                     'website' => $result->website ? $result->website : '-',
-                    // 'products' => $resultProduct,
-                    'products' => $this->RestProductFavoriteFromMerchant($result->id),
+                    'products' => $resultProduct,
+                    // 'products' => $this->RestProductFavoriteFromMerchant($result->id),
 
                 ];
             }
