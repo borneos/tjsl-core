@@ -16,7 +16,7 @@ class MerchantController extends Controller
         $perPage = $request->perPage ?? 10;
         $request_q = $request->q ?? null; // merchant name
         $slug_category = $request->category ?? null; // slug category
-        $isFavorite = $request->isFavorite ?? 1; //favorite
+        $isFavorite = $request->isFavorite ? 1 : null; //favorite
         $sort = $request->sort ?? 'desc';
         $merchant = $this->QueryMerchantlist(compact('perPage', 'request_q', 'slug_category','isFavorite', 'sort'));
 
