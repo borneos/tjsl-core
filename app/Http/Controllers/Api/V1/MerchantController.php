@@ -41,7 +41,7 @@ class MerchantController extends Controller
                 'perPage' => $perPage,
                 'total'   => $merchant->total()
             ]);
-            return response()->json(['status' => 'success', 'meta' => $meta, 'data' => $this->resultMerchantList($merchant)]);
+            return response()->json(['status' => 'success', 'meta' => $meta, 'data' => $this->resultListMerchantDetail($merchant)]);
         } else {
             return response()->json(['status' => 'error', 'meta' => null, 'data' => null]);
         }
