@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 
-Route::group(['namespace' => 'Api\V1'], function () {
+Route::group(['namespace' => 'Api\V1','middleware' => 'tokenb'], function () {
     Route::prefix('banners')->group(function(){
         Route::get('/','BannerController@get_banners');
     });
