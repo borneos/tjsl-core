@@ -20,7 +20,7 @@ class BannerController extends Controller
                     'id' => $item->id,
                     'title' => $item->title,
                     'image' => $item->image ? $item->image : null,
-                    'additionalImage' => $item->additional_image ? $item->additional_image : null,
+                    'additionalImage' => $item->additional_image ? json_decode($item->additional_image) : null
                     'link' => $item->url ? $item->url : ''
                 ];
             }
