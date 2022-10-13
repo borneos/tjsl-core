@@ -15,13 +15,13 @@ Route::namespace('Admin')->middleware('auth')->group(function () {
     Route::get('/dashboard', function () {
         return view('admin.dashboard');
     });
-    Route::prefix('banner')->group(function(){
-        Route::get('/','BannerController@index')->name('admin.banner.index');
-        Route::get('/add','BannerController@add')->name('admin.banner.add');
-        Route::post('/add','BannerController@store')->name('admin.banner.store');
-        Route::get('/edit/{id}','BannerController@edit')->name('admin.banner.edit');
-        Route::put('/edit/{id}','BannerController@update')->name('admin.banner.update');
-        Route::delete('/{id}','BannerController@delete')->name('admin.banner.delete');
+    Route::prefix('banner')->group(function () {
+        Route::get('/', 'BannerController@index')->name('admin.banner.index');
+        Route::get('/add', 'BannerController@add')->name('admin.banner.add');
+        Route::post('/add', 'BannerController@store')->name('admin.banner.store');
+        Route::get('/edit/{id}', 'BannerController@edit')->name('admin.banner.edit');
+        Route::put('/edit/{id}', 'BannerController@update')->name('admin.banner.update');
+        Route::delete('/{id}', 'BannerController@delete')->name('admin.banner.delete');
     });
     Route::prefix('category')->group(function () {
         Route::get('/', 'CategoryController@index')->name('admin.category.index');
@@ -67,6 +67,11 @@ Route::namespace('Admin')->middleware('auth')->group(function () {
         Route::get('/edit/{id}', 'ProductController@edit')->name('admin.product.edit');
         Route::put('/edit/{product:id}', 'ProductController@update')->name('admin.product.update');
         Route::delete('/{product:id}', 'ProductController@delete')->name('admin.product.delete');
+    });
+    Route::prefix('user')->group(function () {
+        Route::get('/', 'UserController@index')->name('admin.user.index');
+        Route::get('/add', 'UserController@add')->name('admin.user.add');
+        Route::get('/edit/{id}', 'UserController@edit')->name('admin.user.edit');
     });
 });
 
