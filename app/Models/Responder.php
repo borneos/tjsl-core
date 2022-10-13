@@ -10,7 +10,7 @@ class Responder extends Model
 {
     use HasFactory, Sortable;
     protected $table = 'responder';
-    protected $fillale = ['name','email','telp','message'];
+    protected $fillable = ['name','email','telp','message'];
     public $sortable = [
         'id','name', 'email','message'
     ];
