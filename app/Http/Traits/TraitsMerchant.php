@@ -151,7 +151,7 @@ trait TraitsMerchant
                 'telp' => $result->telp,
                 'type' => $result->type,
                 'website' => $result->website ? $result->website : '-',
-                'products' => $this->RestProductFavoriteFromMerchant(['merchant_id' => $result->id,'isFavorite'=> $data['isFavorite']]),
+                'products' => $this->RestProductFavoriteFromMerchant(['merchant_id' => $result->id, 'isFavorite'=> $data['isFavoriteProduct']]),
             ];
         }
         return $resultMerchant;
