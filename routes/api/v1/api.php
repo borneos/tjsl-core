@@ -23,4 +23,7 @@ Route::group(['namespace' => 'Api\V1','middleware' => 'tokenb'], function () {
     Route::prefix('products')->group(function () {
         Route::get('/', 'ProductController@get_products');
     });
+    Route::prefix('responder')->group(function(){
+        Route::post('/','ResponderController@store');
+    });
 });
