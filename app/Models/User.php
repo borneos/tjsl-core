@@ -22,7 +22,7 @@ class User extends Authenticatable
         'email',
         'password',
     ];
-
+    public $sortable = ['id', 'name', 'email'];
     /**
      * The attributes that should be hidden for serialization.
      *
