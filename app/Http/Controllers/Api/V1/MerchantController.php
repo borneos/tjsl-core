@@ -17,6 +17,7 @@ class MerchantController extends Controller
         $request_q = $request->q ?? null; // merchant name
         $slug_category = $request->category ?? null; // slug category
         $isFavorite = $request->isFavorite ?? ''; //favorite
+        $isFavoriteProduct = $request->isFavoriteProduct ?? ''; //favorite product
         $sort = $request->sort ?? 'desc';
         $merchant = $this->QueryMerchantlist(compact('perPage', 'request_q', 'slug_category','isFavorite', 'sort'));
 
@@ -28,7 +29,7 @@ class MerchantController extends Controller
                 'perPage' => $perPage,
                 'total'   => $merchant->total()
             ]);
-            return response()->json(['status' => 'success','meta'=> $meta,'data' => $this->merchantListWithProductFavorite(compact('merchant','isFavorite'))]);
+            return response()->json(['status' => 'success','meta'=> $meta,'data' => $this->merchantListWithProductFavorite(compact('merchant','isFavoriteProduct'))]);
         }
     }
     public function get_merchant_detail(Request $request)
