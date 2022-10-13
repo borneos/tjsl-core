@@ -20,6 +20,9 @@
           <li>
               <a class="product {{ count(request()->segments()) == 1 && request()->segments()[0] == 'product' ? 'mm-active' : '' }}" href="{{ route('admin.product.index') }}"><i class="metismenu-icon pe-7s-server"></i>Product</a>
           </li>
+          <li>
+              <a class="responder {{ count(request()->segments()) == 1 && request()->segments()[0] == 'responder' ? 'mm-active' : '' }}" href="{{ route('admin.responder.index') }}"><i class="metismenu-icon pe-7s-next-2"></i>Responder</a>
+          </li>
           <li class="app-sidebar__heading">Blog</li>
         </ul>
          <ul class="vertical-nav-menu">
