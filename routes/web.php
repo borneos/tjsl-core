@@ -68,6 +68,9 @@ Route::namespace('Admin')->middleware('auth')->group(function () {
         Route::put('/edit/{product:id}', 'ProductController@update')->name('admin.product.update');
         Route::delete('/{product:id}', 'ProductController@delete')->name('admin.product.delete');
     });
+    Route::prefix('responder')->group(function(){
+        Route::get('/','ResponderController@index')->name('admin.responder.index');
+    });
 });
 
 Route::get('/', 'LandingController@index')->name('index');
