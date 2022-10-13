@@ -29,7 +29,7 @@ class MerchantController extends Controller
                 'perPage' => $perPage,
                 'total'   => $merchant->total()
             ]);
-            return response()->json(['status' => 'success','meta'=> $meta,'data' => $this->merchantListWithProductFavorite(compact('merchant','isFavoriteProduct'))]);
+            return response()->json(['status' => 'success','meta'=> $meta,'data' => $this->merchantListWithProductFavorite(compact('merchant', 'isFavorite', 'isFavoriteProduct'))]);
         }
     }
     public function get_merchant_detail(Request $request)
