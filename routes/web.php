@@ -68,12 +68,13 @@ Route::namespace('Admin')->middleware('auth')->group(function () {
         Route::put('/edit/{product:id}', 'ProductController@update')->name('admin.product.update');
         Route::delete('/{product:id}', 'ProductController@delete')->name('admin.product.delete');
     });
-    Route::prefix('responder')->group(function(){
-        Route::get('/','ResponderController@index')->name('admin.responder.index');
+    Route::prefix('responder')->group(function () {
+        Route::get('/', 'ResponderController@index')->name('admin.responder.index');
     });
     Route::prefix('user')->group(function () {
         Route::get('/', 'UserController@index')->name('admin.user.index');
         Route::get('/add', 'UserController@add')->name('admin.user.add');
+        Route::post('/add', 'UserController@store')->name('admin.user.store');
         Route::get('/edit/{id}', 'UserController@edit')->name('admin.user.edit');
     });
 });
