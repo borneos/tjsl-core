@@ -76,6 +76,7 @@ Route::namespace('Admin')->middleware('auth')->group(function () {
         Route::get('/add', 'UserController@add')->name('admin.user.add');
         Route::post('/add', 'UserController@store')->name('admin.user.store');
         Route::get('/edit/{id}', 'UserController@edit')->name('admin.user.edit');
+        Route::put('/edit/{user:id}', 'UserController@update')->name('admin.user.update');
     });
 });
 
