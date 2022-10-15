@@ -32,8 +32,9 @@
             <div class="app-header header-shadow">
                 <div class="app-header__logo">
                     <div class="w-100">
-                        <img style="max-height: 3em" src="{{ env('PUBLIC_IMAGE') }}/images/logo.svg" />
-                        <span style="font-weight: bold; color: #3f6ad8;">Admin</span>
+                        <img style="max-height: 3em" src="{{ env('PUBLIC_IMAGE') }}/images/kamiumkm.png" />
+                        <span
+                            style="font-weight: bold; color: #3f6ad8;vertical-align:-20% ;display:inline-block">Admin</span>
                     </div>
                     <div class="header__pane ml-auto">
                         <div><button type="button" class="hamburger close-sidebar-btn hamburger--elastic"
