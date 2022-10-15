@@ -32,8 +32,9 @@
             <div class="app-header header-shadow">
                 <div class="app-header__logo">
                     <div class="w-100">
-                        <img style="max-height: 3em" src="{{ env('PUBLIC_IMAGE') }}/images/logo.svg" />
-                        <span style="font-weight: bold; color: #3f6ad8;">Admin</span>
+                        <img style="max-height: 3em" src="{{ env('PUBLIC_IMAGE') }}/images/kamiumkm.png" />
+                        <span
+                            style="font-weight: bold; color: #3f6ad8;vertical-align:-20% ;display:inline-block">Admin</span>
                     </div>
                     <div class="header__pane ml-auto">
                         <div><button type="button" class="hamburger close-sidebar-btn hamburger--elastic"
@@ -101,7 +102,7 @@
                                             <a data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
                                                 class="p-0 btn">
                                                 <img width="42" class="rounded-circle"
-                                                    src="https://ui-avatars.com/api/?name={{ Auth()->user()->f_name }}+{{ Auth()->user()->l_name }}&background=random"
+                                                    src="https://ui-avatars.com/api/?name={{ Auth()->user()->name }}&background=random"
                                                     alt="">
                                                 <i class="fa fa-angle-down ml-2 opacity-8"></i>
                                             </a>
@@ -115,11 +116,12 @@
                                                                 <div class="widget-content-wrapper">
                                                                     <div class="widget-content-left mr-3"><img
                                                                             width="42" class="rounded-circle"
-                                                                            src="https://ui-avatars.com/api/?name={{ Auth()->user()->f_name }}+{{ Auth()->user()->l_name }}&background=random"
+                                                                            src="https://ui-avatars.com/api/?name={{ Auth()->user()->name }}&background=random"
                                                                             alt=""></div>
                                                                     <div class="widget-content-left">
                                                                         <div class="widget-heading">Halo</div>
-                                                                        <div class="widget-subheading opacity-8">Nama
+                                                                        <div class="widget-subheading opacity-8">
+                                                                            {{ Auth()->user()->name }}
                                                                         </div>
                                                                     </div>
                                                                     <div class="widget-content-right mr-2"><a
@@ -136,7 +138,7 @@
                                     </div>
                                     <div class="widget-content-left  ml-3 header-user-info">
                                         <div class="widget-heading">Halo</div>
-                                        <div class="widget-subheading">Nama</div>
+                                        <div class="widget-subheading">{{ Auth()->user()->name }}</div>
                                     </div>
                                     <!-- <div class="widget-content-right header-user-info ml-3"><button type="button" class="btn-shadow p-1 btn btn-primary btn-sm show-toastr-example"><i class="fa text-white fa-calendar pr-1 pl-1"></i></button></div> -->
                                 </div>
