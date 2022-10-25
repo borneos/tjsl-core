@@ -50,25 +50,17 @@ trait CloudinaryImage
     }
     public function UpdateImageMerchantCloudinary($data)
     {
-        if ($data['collection']['image']) {
-            if (substr($data['collection']['image'], 0, 4) == 'http') {
-                if($data['storagePath'] == 'additionalImage'){
-                    $key = json_decode($data['collection']['additional_image']);
-                    Cloudinary::destroy($key->public_id);
-                }elseif($data['storagePath'] == 'additionalImageCover'){
-                    $key = json_decode($data['collection']['additional_image_cover']);
-                    Cloudinary::destroy($key->public_id);
-                }elseif($data['storagePath'] == 'additionalImageSeo'){
-                    $key = json_decode($data['collection']['additional_image_seo']);
-                    Cloudinary::destroy($key->public_id);
-                }
-                return $this->UploadImageCloudinary(['image' => $data['image'], 'folder' => $data['folder']]);
-            } else {
-                return $this->UploadImageCloudinary(['image' => $data['image'], 'folder' => $data['folder']]);
-            }
-        } else {
-            return $this->UploadImageCloudinary(['image' => $data['image'], 'folder' => $data['folder']]);
+        if($data['storagePath'] == 'additionalImage' && $data['collection']['additional_image']){
+            $key = json_decode($data['collection']['additional_image']);
+            Cloudinary::destroy($key->public_id);
+        }elseif($data['storagePath'] == 'additionalImageCover' && $data['collection']['additional_image_cover']){
+            $key = json_decode($data['collection']['additional_image_cover']);
+            Cloudinary::destroy($key->public_id);
+        }elseif($data['storagePath'] == 'additionalImageSeo' && $data['collection']['additional_image_seo']){
+            $key = json_decode($data['collection']['additional_image_seo']);
+            Cloudinary::destroy($key->public_id);
         }
+        return $this->UploadImageCloudinary(['image' => $data['image'], 'folder' => $data['folder']]);
     }
     public function UploadImageMultipleCloudinary($data)
     {
