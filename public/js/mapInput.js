@@ -35,6 +35,7 @@ function initialize() {
         const marker = new google.maps.Marker({
             map: map,
             draggable: true,
+            animation: google.maps.Animation.DROP,
             position: { lat: latitude, lng: longitude },
         });
 
@@ -65,6 +66,14 @@ function initialize() {
                     }
                 );
             }
+        });
+        google.maps.event.addListener(marker, "dragend", function (marker) {
+            marker;
+            var latLng = marker.latLng;
+            var currentLatitude = latLng.lat();
+            var currentLongitude = latLng.lng();
+            $("#address-latitude").val(currentLatitude.toFixed(6));
+            $("#address-longitude").val(currentLongitude.toFixed(6));
         });
 
         const options = {
@@ -148,7 +157,7 @@ function setCoordinate() {
     document.getElementById("btnCoordinate").innerHTML = "Edit Coordinate";
 }
 
-function setCoordinate() {
+function setCoordinateRegister() {
     const latitudeField = document.getElementById("address-latitude").value;
     const longitudeField = document.getElementById("address-longitude").value;
     document.cookie = "lat=" + latitudeField;
