@@ -64,12 +64,12 @@
                                 <div class="form-group ml-3">
                                     <label>Favorite</label><br>
                                     <label class="m-auto align-middle" for="favoriteCheckbox">
-                                        <input type="checkbox" data-toggle="toggle" data-size="small"
-                                            id="favoriteCheckbox" name="favorite">
+                                        <input type="checkbox" data-toggle="toggle" data-size="small" id="favoriteCheckbox"
+                                            name="favorite">
                                     </label>
                                 </div>
                             </div>
-                            
+
                             <div class="form-group">
                                 <label for="image">Logo Merchant</label><br>
                                 <input type="file" accept="image/*" id="image" name="image">
@@ -334,11 +334,11 @@
                 if (output.data.files && output.data.files[0]) {
                     let reader = new FileReader();
                     reader.onload = function(e) {
-                        if(output.to == 'image'){
+                        if (output.to == 'image') {
                             $('#viewer').attr('src', e.target.result);
-                        }else if(output.to == 'seoImage'){
+                        } else if (output.to == 'seoImage') {
                             $('#viewer_seo').attr('src', e.target.result);
-                        }else if(output.to == 'coverImage'){
+                        } else if (output.to == 'coverImage') {
                             $('#viewer_cover').attr('src', e.target.result);
                         }
                     }
@@ -347,13 +347,22 @@
             }
 
             $("#image").change(function() {
-                readURL({data:this,to:'image'});
+                readURL({
+                    data: this,
+                    to: 'image'
+                });
             });
-            $('#cover_image').change(function(){
-                readURL({data:this,to:'coverImage'});
+            $('#cover_image').change(function() {
+                readURL({
+                    data: this,
+                    to: 'coverImage'
+                });
             });
             $("#seo_image").change(function() {
-                 readURL({data:this,to:'seoImage'});
+                readURL({
+                    data: this,
+                    to: 'seoImage'
+                });
             });
             $('#name').keyup(function(e) {
                 $('#slug').val(convertToSlug(e.target.value));
