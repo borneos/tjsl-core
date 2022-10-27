@@ -36,12 +36,7 @@ class BlogController extends Controller
         $perPage = $request->perPage ?? 1;
         if (Blog::where([['slug', '=', $request->slug], ['status', '=', 1]])->exists()) {
             $blog = Blog::where([['slug', '=', $request->slug], ['status', '=', 1]])->paginate($perPage);
-            $meta = $this->metaBlogList([
-                'page'    => $request->page == null ? null : $request->page,
-                'perPage' => $perPage,
-                'total'   => $blog->total()
-            ]);
-            return response()->json(['status' => 'success', 'meta' => $meta, 'data' => $this->resultBlogList($blog)]);
+            return response()->json(['status' => 'success', 'meta' => (object)[], 'data' => $this->resultListBlogDetail($blog)]);
         } else {
             return response()->json(['status' => 'error', 'meta' => null, 'data' => null]);
         }

@@ -86,4 +86,29 @@ trait TraitsBlog
         };
         return $results;
     }
+    public function resultListBlogDetail($data)
+    {
+        $result = $data[0];
+        return [
+            'id' => $result->id,
+            'title' => $result->title,
+            'slug' => $result->slug,
+            'shortDescription' => $result->short_description ?? null,
+            'description' => $result->description ?? null,
+            'category' => [
+                'id' => $result->category_id ? $result->category_id : null,
+                'name' => $result->category_id && $result->category->name ? $result->category->name : null,
+                'slug' => $result->category_id && $result->category->slug ? $result->category->slug : null,
+                'image' => $result->category_id && $result->category->image ? $result->category->image : null,
+                'additionalImage' => $result->category_id && $result->category->additional_image ? json_decode($result->category->additional_image) : null,
+            ],
+            'image' => $result->image ? $result->image : null,
+            'additionalImage' => $result->additional_image ? json_decode($result->additional_image) : null,
+            'author' => $result->author ?? null,
+            'tags' => $result->tags ?? null,
+            'status' => $result->status,
+            'dateCreate' => $result->created_at->format('d/m/Y'),
+            'dateUpdate' => $result->updated_at->format('d/m/Y')
+        ];
+    }
 }
