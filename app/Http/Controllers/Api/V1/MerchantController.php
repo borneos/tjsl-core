@@ -19,7 +19,8 @@ class MerchantController extends Controller
         $isFavorite = $request->isFavorite ?? ''; //favorite
         $isFavoriteProduct = $request->isFavoriteProduct ?? ''; //favorite product
         $sort = $request->sort ?? 'desc';
-        $merchant = $this->QueryMerchantlist(compact('perPage', 'request_q', 'slug_category','isFavorite', 'sort'));
+        $status = $request->status ?? 'all';
+        $merchant = $this->QueryMerchantlist(compact('perPage', 'request_q', 'slug_category','isFavorite', 'sort','status'));
 
         if ($merchant->count() == 0) {
             return response()->json(['status' => 'error', 'meta' => null, 'data' => null]);
