@@ -8,7 +8,9 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>TJSL Core - Content Management System</title>
+    <title>KamiUmkm - Content Management System</title>
+    <link rel="shortcut icon"
+        href="https://res.cloudinary.com/borneos-co/image/upload/v1664949691/tjsl-core/icon-logo/favicon_cen5ia.ico">
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
