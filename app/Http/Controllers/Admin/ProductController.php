@@ -16,13 +16,15 @@ class ProductController extends Controller
     public function index(Request $request)
     {
         $search = $this->SearchProductList([
-            'filter' => $request->query('filter'),
-            'merchant' => $request->query('merchant'),
-            'status' => $request->query('status')
+            'filter'    => $request->query('filter'),
+            'type'      => $request->query('type'),
+            'merchant'  => $request->query('merchant'),
+            'status'    => $request->query('status')
         ]);
         return view('admin.product.index', [
             'merchants' => Merchant::all(),
             'filter'    => $search['filter'],
+            'type'      => $search['type'],
             'merchant'  => $search['merchant'],
             'status'    => $search['status'] == null ? 404 : $search['status'],
             'products'  => $search['products']
