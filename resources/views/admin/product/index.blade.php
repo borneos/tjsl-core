@@ -22,7 +22,7 @@
             <div class="card-body">
                 <form method="GET">
                     <div class="row mb-3">
-                        <div class="col-12 col-md-3">
+                        <div class="col-12 col-md-5">
                             <div class="d-flex">
                                 <div class="form-inline w-100">
                                     <div class="input-group w-100">
@@ -31,6 +31,12 @@
                                                 <i class="fa fa-search fa-w-16 "></i>
                                             </div>
                                         </div>
+                                        <select style="font-size: 14px" name="type" id="type" class="form-control">
+                                            <option value="name" {{ request()->type == 'name' ? 'selected' : '' }}>
+                                                Product Name</option>
+                                            <option value="price"{{ request()->type == 'price' ? 'selected' : '' }}>
+                                                Product Price</option>
+                                        </select>
                                         <input style="font-size: 14px" id="filter" name="filter"
                                             value="{{ $filter }}" placeholder="Search Product, Price" type="text"
                                             class="form-control" style="color: gray;" autocomplete="off">
@@ -38,7 +44,8 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-12 col-md-4">
+                        {{-- @dd(request()) --}}
+                        <div class="col-12 col-md-3">
                             <div class="d-flex">
                                 <div class="input-group w-100">
                                     <select style="font-size: 14px" name="merchant" id="merchant"
@@ -54,7 +61,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-12 col-md-3">
+                        <div class="col-12 col-md-2">
                             <div class="d-flex">
                                 <div class="input-group w-100">
                                     <select style="font-size: 14px" name="status" id="status" class="form-control">
