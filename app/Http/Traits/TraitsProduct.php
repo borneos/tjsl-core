@@ -11,77 +11,96 @@ trait TraitsProduct
         $filter   = $data['filter'];
         $merchant = $data['merchant'];
         $status   = $data['status'];
+        $type     = $data['type'];
 
         if ($filter == null) {
             if ($merchant == null) { /* filter null merchant null */
                 if ($status == null) {
                     /* filter null merchant null status null */
                     $products = Product::sortable()->paginate(10);
-                    return compact('filter', 'merchant', 'status', 'products');
+                    return compact('filter', 'merchant', 'status', 'products', 'type');
                 } else {
                     /* filter null merchant null status not null */
                     $products = Product::sortable()->where('products.status', 'like', '%' . $status . '%')->paginate(10);
-                    return compact('filter', 'merchant', 'status', 'products');
+                    return compact('filter', 'merchant', 'status', 'products', 'type');
                 }
             } else { /* filter null merchant not null */
                 if ($status == null) {
                     /* filter null merchant not null status null */
                     $products = Product::sortable()->where('products.merchant_id', '=', $merchant)->paginate(10);
-                    return compact('filter', 'merchant', 'status', 'products');
+                    return compact('filter', 'merchant', 'status', 'products', 'type');
                 } else {
                     /* filter null merchant not null status not null */
                     $products = Product::sortable()->where('products.merchant_id', '=', $merchant)
                         ->where('products.status', '=', $status)
                         ->paginate(10);
-                    return compact('filter', 'merchant', 'status', 'products');
+                    return compact('filter', 'merchant', 'status', 'products', 'type');
                 }
             }
         } else { /* filter not null */
             if ($merchant == null) {
                 if ($status == null) {
                     /* filter not null merchant null status null */
-                    $products = Product::sortable()
-                        ->where('products.sku', 'like', '%' . $filter . '%')
-                        ->orWhere('products.name', 'like', '%' . $filter . '%')
-                        ->orWhere('products.merchant_name', 'like', '%' . $filter . '%')
-                        ->orWhere('products.tags', 'like', '%' . $filter . '%')
-                        ->orWhere('products.price', 'like', '%' . $filter . '%')
-                        ->paginate(10);
-                    return compact('filter', 'merchant', 'status', 'products');
+                    if ($type == "name") {
+                        $products = Product::sortable()
+                            // ->where('products.merchant_id', '=', $merchant)
+                            ->where('products.name', 'like', '%' . $filter . '%')
+                            ->paginate(10);
+                    } elseif ($type == "price") {
+                        $products = Product::sortable()
+                            // ->where('products.merchant_id', '=', $merchant)
+                            ->where('products.price', '=', $filter)
+                            ->paginate(10);
+                    }
+                    return compact('filter', 'merchant', 'status', 'products', 'type');
                 } else {
                     /* filter not null merchant null status not null */
-                    $products = Product::sortable()
-                        ->where('products.status', '=', $status)
-                        ->orWhere('products.sku', 'like', '%' . $filter . '%')
-                        ->orWhere('products.name', 'like', '%' . $filter . '%')
-                        ->orWhere('products.merchant_name', 'like', '%' . $filter . '%')
-                        ->orWhere('products.tags', 'like', '%' . $filter . '%')
-                        ->orWhere('products.price', 'like', '%' . $filter . '%')
-                        ->paginate(10);
-                    return compact('filter', 'merchant', 'status', 'products');
+                    if ($type == "name") {
+                        $products = Product::sortable()
+                            // ->where('products.merchant_id', '=', $merchant)
+                            ->where('products.status', '=', $status)
+                            ->where('products.name', 'like', '%' . $filter . '%')
+                            ->paginate(10);
+                    } elseif ($type == "price") {
+                        $products = Product::sortable()
+                            // ->where('products.merchant_id', '=', $merchant)
+                            ->where('products.status', '=', $status)
+                            ->where('products.price', '=', $filter)
+                            ->paginate(10);
+                    }
+                    return compact('filter', 'merchant', 'status', 'products', 'type');
                 }
             } else { /* filter not null merchant not null */
                 if ($status == null) {
                     /* filter not null merchant not null status null */
-                    $products = Product::sortable()
-                        ->where('products.merchant_id', '=', $merchant)
-                        ->orWhere('products.sku', 'like', '%' . $filter . '%')
-                        ->orWhere('products.name', 'like', '%' . $filter . '%')
-                        ->orWhere('products.tags', 'like', '%' . $filter . '%')
-                        ->orWhere('products.price', 'like', '%' . $filter . '%')
-                        ->paginate(10);
-                    return compact('filter', 'merchant', 'status', 'products');
+                    if ($type == "name") {
+                        $products = Product::sortable()
+                            ->where('products.merchant_id', '=', $merchant)
+                            ->where('products.name', 'like', '%' . $filter . '%')
+                            ->paginate(10);
+                    } elseif ($type == "price") {
+                        $products = Product::sortable()
+                            ->where('products.merchant_id', '=', $merchant)
+                            ->where('products.price', '=', $filter)
+                            ->paginate(10);
+                    }
+                    return compact('filter', 'merchant', 'status', 'products', 'type');
                 } else {
                     /* filter not null merchant not null status not null */
-                    $products = Product::sortable()
-                        ->where('products.merchant_id', '=', $merchant)
-                        ->where('products.status', '=', $status)
-                        ->orWhere('products.sku', 'like', '%' . $filter . '%')
-                        ->orWhere('products.name', 'like', '%' . $filter . '%')
-                        ->orWhere('products.tags', 'like', '%' . $filter . '%')
-                        ->orWhere('products.price', 'like', '%' . $filter . '%')
-                        ->paginate(10);
-                    return compact('filter', 'merchant', 'status', 'products');
+                    if ($type == "name") {
+                        $products = Product::sortable()
+                            ->where('products.merchant_id', '=', $merchant)
+                            ->where('products.status', '=', $status)
+                            ->where('products.name', 'like', '%' . $filter . '%')
+                            ->paginate(10);
+                    } elseif ($type == "price") {
+                        $products = Product::sortable()
+                            ->where('products.merchant_id', '=', $merchant)
+                            ->where('products.status', '=', $status)
+                            ->where('products.price', '=', $filter)
+                            ->paginate(10);
+                    }
+                    return compact('filter', 'merchant', 'status', 'products', 'type');
                 }
             }
         }
