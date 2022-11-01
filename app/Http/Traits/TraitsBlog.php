@@ -15,12 +15,19 @@ trait TraitsBlog
                 $blogs = Blog::sortable()
                     ->where('blog.title', 'like', '%' . $filter . '%')
                     ->orWhere('blog.slug', 'like', '%' . $filter . '%')
+                    ->orWhereHas('category', function ($q) use ($filter) {
+                        return $q->where('name', '=', $filter);
+                    })
                     ->paginate(10);
                 return compact('blogs', 'filter', 'status');
             } else {
                 $blogs = Blog::sortable()
                     ->where([['blog.title', 'like', '%' . $filter . '%'], ['status', '=', $status]])
                     ->orWhere([['blog.slug', 'like', '%' . $filter . '%'], ['status', '=', $status]])
+                    ->orWhereHas('category', function ($q) use ($filter) {
+                        return $q->where('name', '=', $filter);
+                    })
+                    ->where('status',$status)
                     ->paginate(10);
                 return compact('blogs', 'filter', 'status');
             }
