@@ -31,8 +31,8 @@ trait TraitsProduct
                     return compact('filter', 'merchant', 'status', 'products', 'type');
                 } else {
                     /* filter null merchant not null status not null */
-                    $products = Product::sortable()->where('products.merchant_id', '=', $merchant)
-                        ->where('products.status', '=', $status)
+                    $products = Product::sortable()
+                        ->where([['products.merchant_id', '=', $merchant],['products.status', '=', $status]])
                         ->paginate(10);
                     return compact('filter', 'merchant', 'status', 'products', 'type');
                 }
@@ -41,65 +41,33 @@ trait TraitsProduct
             if ($merchant == null) {
                 if ($status == null) {
                     /* filter not null merchant null status null */
-                    if ($type == "name") {
-                        $products = Product::sortable()
-                            // ->where('products.merchant_id', '=', $merchant)
+                     $products = Product::sortable()
                             ->where('products.name', 'like', '%' . $filter . '%')
+                            ->orWhere('products.price', '=', $filter)
                             ->paginate(10);
-                    } elseif ($type == "price") {
-                        $products = Product::sortable()
-                            // ->where('products.merchant_id', '=', $merchant)
-                            ->where('products.price', '=', $filter)
-                            ->paginate(10);
-                    }
                     return compact('filter', 'merchant', 'status', 'products', 'type');
                 } else {
                     /* filter not null merchant null status not null */
-                    if ($type == "name") {
-                        $products = Product::sortable()
-                            // ->where('products.merchant_id', '=', $merchant)
-                            ->where('products.status', '=', $status)
-                            ->where('products.name', 'like', '%' . $filter . '%')
+                    $products = Product::sortable()
+                            ->where([['products.name', 'like', '%' . $filter . '%'],['products.status','=',$status]])
+                            ->orWhere([['products.price','=',$filter],['products.status','=',$status]])
                             ->paginate(10);
-                    } elseif ($type == "price") {
-                        $products = Product::sortable()
-                            // ->where('products.merchant_id', '=', $merchant)
-                            ->where('products.status', '=', $status)
-                            ->where('products.price', '=', $filter)
-                            ->paginate(10);
-                    }
                     return compact('filter', 'merchant', 'status', 'products', 'type');
                 }
             } else { /* filter not null merchant not null */
                 if ($status == null) {
                     /* filter not null merchant not null status null */
-                    if ($type == "name") {
-                        $products = Product::sortable()
-                            ->where('products.merchant_id', '=', $merchant)
-                            ->where('products.name', 'like', '%' . $filter . '%')
-                            ->paginate(10);
-                    } elseif ($type == "price") {
-                        $products = Product::sortable()
-                            ->where('products.merchant_id', '=', $merchant)
-                            ->where('products.price', '=', $filter)
-                            ->paginate(10);
-                    }
+                    $products = Product::sortable()
+                        ->where([['products.merchant_id', '=', $merchant],['products.name', 'like', '%' . $filter . '%']])
+                        ->orWhere([['products.merchant_id', '=', $merchant],['products.price', '=', $filter]])
+                        ->paginate(10);
                     return compact('filter', 'merchant', 'status', 'products', 'type');
                 } else {
                     /* filter not null merchant not null status not null */
-                    if ($type == "name") {
-                        $products = Product::sortable()
-                            ->where('products.merchant_id', '=', $merchant)
-                            ->where('products.status', '=', $status)
-                            ->where('products.name', 'like', '%' . $filter . '%')
-                            ->paginate(10);
-                    } elseif ($type == "price") {
-                        $products = Product::sortable()
-                            ->where('products.merchant_id', '=', $merchant)
-                            ->where('products.status', '=', $status)
-                            ->where('products.price', '=', $filter)
-                            ->paginate(10);
-                    }
+                    $products = Product::sortable()
+                        ->where([['products.merchant_id', '=', $merchant],['products.name', 'like', '%' . $filter . '%'],['products.status','=',$status]])
+                        ->orWhere([['products.merchant_id', '=', $merchant],['products.price', '=', $filter],['products.status','=',$status]])
+                        ->paginate(10);
                     return compact('filter', 'merchant', 'status', 'products', 'type');
                 }
             }

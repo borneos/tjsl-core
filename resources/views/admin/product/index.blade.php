@@ -143,6 +143,8 @@
                                 'direction' => request()->direction,
                                 'filter' => request()->filter,
                                 'merchant' => request()->merchant,
+                                'status' => request()->status,
+                                'type' => request()->type,
                             ])->onEachSide(2)->links() !!}
                     </div>
                     <div class="col-12 col-md-6 w-100 d-flex justify-content-end align-middle">
@@ -188,6 +190,19 @@
                     });
                 }
             })
+        }
+        $('#type').on('change',function(){
+            typeHandler();
+        });
+        typeHandler();
+        function typeHandler(){
+            if(document.getElementById('type').value == 'price'){
+                document.getElementById('filter').setAttribute('type','number');
+                document.getElementById('filter').setAttribute('placeholder','Search Product Price');
+            }else{
+                document.getElementById('filter').setAttribute('type','text');
+                document.getElementById('filter').setAttribute('placeholder','Search Product Name');
+            }
         }
     </script>
 @endsection
